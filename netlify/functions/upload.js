@@ -1,36 +1,17 @@
-const fs = require('fs');
-const path = require('path');
-
-// Helper function to ensure directory exists
-const ensureDirectoryExists = (dirPath) => {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-};
-
-// Helper function to save base64 image
-const saveBase64Image = (base64Data, filename) => {
+// Helper function to process base64 image (for Netlify Functions)
+// Note: In Netlify Functions, we return the base64 data directly since we can't save files
+const processBase64Image = (base64Data, filename) => {
   try {
-    // Remove data:image/jpeg;base64, prefix if present
-    const base64Image = base64Data.replace(/^data:image\/[a-z]+;base64,/, '');
-    
-    // Ensure uploads directory exists
-    const uploadsDir = path.join(process.cwd(), 'uploads');
-    ensureDirectoryExists(uploadsDir);
-    
-    // Generate unique filename
+    // Generate unique filename for reference
     const timestamp = Date.now();
     const randomNum = Math.floor(Math.random() * 1000000);
-    const extension = filename ? path.extname(filename) : '.jpg';
-    const uniqueFilename = `product-${timestamp}-${randomNum}${extension}`;
+    const extension = filename ? filename.split('.').pop() : 'jpg';
+    const uniqueFilename = `product-${timestamp}-${randomNum}.${extension}`;
     
-    // Save file
-    const filePath = path.join(uploadsDir, uniqueFilename);
-    fs.writeFileSync(filePath, base64Image, 'base64');
-    
-    return `/uploads/${uniqueFilename}`;
+    // Return the base64 data URL (since we can't save files in Netlify Functions)
+    return base64Data.startsWith('data:') ? base64Data : `data:image/${extension};base64,${base64Data}`;
   } catch (error) {
-    console.error('Error saving image:', error);
+    console.error('Error processing image:', error);
     return null;
   }
 };
@@ -71,14 +52,14 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Save the image
-    const imagePath = saveBase64Image(imageData, filename);
+    // Process the image (return base64 data URL for Netlify Functions)
+    const processedImagePath = processBase64Image(imageData, filename);
 
-    if (!imagePath) {
+    if (!processedImagePath) {
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ message: 'Failed to save image' })
+        body: JSON.stringify({ message: 'Failed to process image' })
       };
     }
 
@@ -86,8 +67,8 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       headers,
       body: JSON.stringify({ 
-        message: 'Image uploaded successfully',
-        imagePath: imagePath
+        message: 'Image processed successfully',
+        imagePath: processedImagePath
       })
     };
 

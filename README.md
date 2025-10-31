@@ -333,11 +333,17 @@ netlify/functions/
 
 #### Funcionalidades Serverless:
 - ✅ **Autenticación JWT** con cookies seguras
-- ✅ **CRUD de productos** con persistencia JSON
+- ✅ **CRUD de productos** con almacenamiento en memoria
 - ✅ **Panel de admin** completamente funcional  
-- ✅ **Upload de imágenes** (base64 encoding)
+- ✅ **Upload de imágenes** (base64 data URLs)
 - ✅ **CORS configurado** para APIs
 - ✅ **Seguridad** con bcrypt y tokens
+
+#### Notas Importantes para Netlify:
+- **Almacenamiento**: Los productos se guardan en memoria durante la sesión
+- **Persistencia**: Para persistencia real usar FaunaDB, Supabase, o similar
+- **Imágenes**: Se almacenan como base64 data URLs (no archivos físicos)
+- **Testing**: Usar `/test-api.html` para probar las APIs
 
 #### Credenciales Predeterminadas:
 - **Usuario**: admin

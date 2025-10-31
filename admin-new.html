@@ -768,6 +768,37 @@
             
             const formData = new FormData(event.target);
             
+            // Convert FormData to JSON object
+            const productData = {};
+            for (let [key, value] of formData.entries()) {
+                productData[key] = value;
+            }
+            
+            // Handle image upload if present
+            const imageFile = formData.get('image');
+            if (imageFile && imageFile.size > 0) {
+                try {
+                    const reader = new FileReader();
+                    reader.onload = async function(e) {
+                        productData.image = e.target.result; // base64 data URL
+                        await submitProduct(productData, submitBtn, originalText);
+                    };
+                    reader.readAsDataURL(imageFile);
+                    return; // Exit here, will continue in reader.onload
+                } catch (error) {
+                    console.error('Error reading image file:', error);
+                    showMessage('Error al procesar la imagen', 'error');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+            } else {
+                // No image file, proceed directly
+                await submitProduct(productData, submitBtn, originalText);
+            }
+        }
+        
+        async function submitProduct(productData, submitBtn, originalText) {
             try {
                 let response;
                 if (editingProductId) {
@@ -775,14 +806,20 @@
                     response = await fetch(`/api/products/${editingProductId}`, {
                         method: 'PUT',
                         credentials: 'include',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(productData)
                     });
                 } else {
                     // Add new product
                     response = await fetch('/api/products', {
                         method: 'POST',
                         credentials: 'include',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(productData)
                     });
                 }
                 
@@ -794,10 +831,11 @@
                     await loadProductsFromAPI();
                     updateDashboard();
                 } else {
-                    showMessage(data.error || 'Error al guardar producto', 'error');
+                    showMessage(data.message || data.error || 'Error al guardar producto', 'error');
                 }
             } catch (error) {
-                showMessage('Error de conexión', 'error');
+                console.error('Submit error:', error);
+                showMessage('Error de conexión: ' + error.message, 'error');
             }
             
             submitBtn.innerHTML = originalText;

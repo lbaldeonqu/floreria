@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba API - Lima Rose</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            background: #f5f5f5; 
+        }
+        .test-container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin: 20px 0; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button { 
+            background: #e91e63; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+        button:hover { background: #c2185b; }
+        .result { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 4px; 
+            margin-top: 10px; 
+            font-family: monospace; 
+            white-space: pre-wrap;
+        }
+        .success { border-left: 4px solid #28a745; }
+        .error { border-left: 4px solid #dc3545; }
+    </style>
+</head>
+<body>
+    <h1>🌹 Lima Rose - Prueba de APIs</h1>
+    
+    <div class="test-container">
+        <h3>🔍 Probar API de Productos</h3>
+        <button onclick="testProducts()">GET /api/products</button>
+        <button onclick="testAddProduct()">POST /api/products</button>
+        <div id="products-result" class="result"></div>
+    </div>
+
+    <div class="test-container">
+        <h3>🔐 Probar API de Login</h3>
+        <button onclick="testLogin()">POST /api/login</button>
+        <button onclick="testVerify()">GET /api/verify</button>
+        <div id="login-result" class="result"></div>
+    </div>
+
+    <script>
+        async function showResult(elementId, promise) {
+            const resultDiv = document.getElementById(elementId);
+            try {
+                resultDiv.className = 'result';
+                resultDiv.textContent = 'Cargando...';
+                
+                const response = await promise;
+                const data = await response.text();
+                
+                resultDiv.className = response.ok ? 'result success' : 'result error';
+                resultDiv.textContent = `Status: ${response.status}\n${data}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function testProducts() {
+            await showResult('products-result', fetch('/api/products'));
+        }
+
+        async function testAddProduct() {
+            const testProduct = {
+                name: "Producto de Prueba",
+                price: 99.99,
+                category: "prueba",
+                description: "Producto de prueba para verificar API",
+                filter: "products"
+            };
+
+            await showResult('products-result', 
+                fetch('/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testProduct)
+                })
+            );
+        }
+
+        async function testLogin() {
+            await showResult('login-result',
+                fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'limarose2025'
+                    })
+                })
+            );
+        }
+
+        async function testVerify() {
+            await showResult('login-result', fetch('/api/verify'));
+        }
+    </script>
+</body>
+</html>
