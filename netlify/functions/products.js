@@ -158,6 +158,158 @@ exports.handler = async (event, context) => {
       };
     }
 
+    if (event.httpMethod === 'PUT') {
+      console.log('Updating product');
+      console.log('Event path:', event.path);
+      console.log('Event queryStringParameters:', event.queryStringParameters);
+      
+      // Extract product ID from path - Netlify Functions path handling
+      let productId = null;
+      
+      // Try different ways to get the product ID
+      if (event.path) {
+        const pathParts = event.path.split('/');
+        productId = parseInt(pathParts[pathParts.length - 1]);
+      }
+      
+      // Fallback: try to get from query parameters
+      if (!productId && event.queryStringParameters && event.queryStringParameters.id) {
+        productId = parseInt(event.queryStringParameters.id);
+      }
+      
+      console.log('Extracted product ID:', productId);
+      
+      if (!productId) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'Product ID is required' })
+        };
+      }
+
+      if (!event.body) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'Request body is required' })
+        };
+      }
+
+      let productData;
+      try {
+        productData = JSON.parse(event.body);
+      } catch (parseError) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'Invalid request body format' })
+        };
+      }
+
+      // Find and update product in all categories
+      let productFound = false;
+      let updatedProduct = null;
+
+      for (const category in global.productsStore) {
+        const categoryProducts = global.productsStore[category];
+        const productIndex = categoryProducts.findIndex(p => p.id === productId);
+        
+        if (productIndex !== -1) {
+          updatedProduct = {
+            ...categoryProducts[productIndex],
+            ...productData,
+            id: productId,
+            updated_at: new Date().toISOString()
+          };
+          categoryProducts[productIndex] = updatedProduct;
+          productFound = true;
+          break;
+        }
+      }
+
+      if (!productFound) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ message: 'Product not found' })
+        };
+      }
+
+      console.log('Product updated successfully');
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          message: 'Product updated successfully',
+          product: updatedProduct
+        })
+      };
+    }
+
+    if (event.httpMethod === 'DELETE') {
+      console.log('Deleting product');
+      console.log('Event path:', event.path);
+      console.log('Event queryStringParameters:', event.queryStringParameters);
+      
+      // Extract product ID from path - Netlify Functions path handling
+      let productId = null;
+      
+      // Try different ways to get the product ID
+      if (event.path) {
+        const pathParts = event.path.split('/');
+        productId = parseInt(pathParts[pathParts.length - 1]);
+      }
+      
+      // Fallback: try to get from query parameters
+      if (!productId && event.queryStringParameters && event.queryStringParameters.id) {
+        productId = parseInt(event.queryStringParameters.id);
+      }
+      
+      console.log('Extracted product ID:', productId);
+      
+      if (!productId) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'Product ID is required' })
+        };
+      }
+
+      // Find and delete product from all categories
+      let productFound = false;
+      let deletedProduct = null;
+
+      for (const category in global.productsStore) {
+        const categoryProducts = global.productsStore[category];
+        const productIndex = categoryProducts.findIndex(p => p.id === productId);
+        
+        if (productIndex !== -1) {
+          deletedProduct = categoryProducts[productIndex];
+          categoryProducts.splice(productIndex, 1);
+          productFound = true;
+          break;
+        }
+      }
+
+      if (!productFound) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ message: 'Product not found' })
+        };
+      }
+
+      console.log('Product deleted successfully');
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          message: 'Product deleted successfully',
+          product: deletedProduct
+        })
+      };
+    }
+
     return {
       statusCode: 405,
       headers,

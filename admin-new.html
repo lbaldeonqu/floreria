@@ -803,7 +803,7 @@
                 let response;
                 if (editingProductId) {
                     // Update existing product
-                    response = await fetch(`/api/products/${editingProductId}`, {
+                    response = await fetch(`/api/update-product?id=${editingProductId}`, {
                         method: 'PUT',
                         credentials: 'include',
                         headers: {
@@ -845,7 +845,7 @@
         async function deleteProduct(productId) {
             if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
                 try {
-                    const response = await fetch(`/api/products/${productId}`, {
+                    const response = await fetch(`/api/delete-product?id=${productId}`, {
                         method: 'DELETE',
                         credentials: 'include'
                     });
