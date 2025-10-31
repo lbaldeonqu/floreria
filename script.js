@@ -364,8 +364,8 @@ function createProductCard(product) {
             <div class="product-category">${product.category}</div>
             <h3 class="product-name" onclick="openProductDetail(${product.id}, '${currentFilter}')">${product.name}</h3>
             <div class="product-price">
-                <span class="current-price">S/ ${product.price.toFixed(2)}</span>
-                ${product.originalPrice ? `<span class="original-price">S/ ${product.originalPrice.toFixed(2)}</span>` : ''}
+                <span class="current-price">S/ ${parseFloat(product.price || 0).toFixed(2)}</span>
+                ${product.originalPrice ? `<span class="original-price">S/ ${parseFloat(product.originalPrice).toFixed(2)}</span>` : ''}
             </div>
             ${discountText ? `<div class="discount">${discountText}</div>` : ''}
             <button class="add-to-cart" onclick="addToCart(${product.id}, '${currentFilter}')">
@@ -465,7 +465,7 @@ function renderCartItems() {
             </div>
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">S/ ${item.price.toFixed(2)}</div>
+                <div class="cart-item-price">S/ ${parseFloat(item.price || 0).toFixed(2)}</div>
                 <div class="cart-item-quantity">
                     <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
                     <span>${item.quantity}</span>
@@ -542,8 +542,15 @@ document.querySelector('.newsletter-form').addEventListener('submit', function(e
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Skip empty anchors or just '#'
+        if (!href || href === '#' || href.length <= 1) {
+            return;
+        }
+        
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
@@ -1416,11 +1423,11 @@ function populateProductDetail(product) {
         `<div class="product-badge">${product.badge}</div>` : '';
     
     // Price
-    document.getElementById('product-price-detail').textContent = `S/ ${product.price.toFixed(2)}`;
+    document.getElementById('product-price-detail').textContent = `S/ ${parseFloat(product.price || 0).toFixed(2)}`;
     
     const originalPriceEl = document.getElementById('product-original-price-detail');
     if (product.originalPrice) {
-        originalPriceEl.textContent = `S/ ${product.originalPrice.toFixed(2)}`;
+        originalPriceEl.textContent = `S/ ${parseFloat(product.originalPrice).toFixed(2)}`;
         originalPriceEl.style.display = 'inline';
     } else {
         originalPriceEl.style.display = 'none';
@@ -1614,8 +1621,8 @@ function loadRelatedProducts(product) {
                 <div class="product-category">${relatedProduct.category}</div>
                 <h3 class="product-name">${relatedProduct.name}</h3>
                 <div class="product-price">
-                    <span class="current-price">S/ ${relatedProduct.price.toFixed(2)}</span>
-                    ${relatedProduct.originalPrice ? `<span class="original-price">S/ ${relatedProduct.originalPrice.toFixed(2)}</span>` : ''}
+                    <span class="current-price">S/ ${parseFloat(relatedProduct.price || 0).toFixed(2)}</span>
+                    ${relatedProduct.originalPrice ? `<span class="original-price">S/ ${parseFloat(relatedProduct.originalPrice).toFixed(2)}</span>` : ''}
                 </div>
             </div>
         `;
@@ -1678,8 +1685,15 @@ document.getElementById('contact-form')?.addEventListener('submit', function(e) 
 // Smooth scroll for navbar links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        // Skip empty anchors or just '#'
+        if (!href || href === '#' || href.length <= 1) {
+            return;
+        }
+        
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
