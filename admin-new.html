@@ -803,7 +803,12 @@
                 let response;
                 if (editingProductId) {
                     // Update existing product
-                    response = await fetch(`/api/update-product?id=${editingProductId}`, {
+                    console.log('🔄 Updating product with ID:', editingProductId);
+                    console.log('📦 Product data being sent:', productData);
+                    const updateUrl = `/api/update-product?id=${editingProductId}`;
+                    console.log('🔗 Update URL:', updateUrl);
+                    
+                    response = await fetch(updateUrl, {
                         method: 'PUT',
                         credentials: 'include',
                         headers: {
@@ -811,6 +816,9 @@
                         },
                         body: JSON.stringify(productData)
                     });
+                    
+                    console.log('📡 Update response status:', response.status);
+                    console.log('📡 Update response ok:', response.ok);
                 } else {
                     // Add new product
                     response = await fetch('/api/products', {
@@ -824,6 +832,7 @@
                 }
                 
                 const data = await response.json();
+                console.log('📨 Server response data:', data);
                 
                 if (response.ok) {
                     showMessage(data.message, 'success');
@@ -831,7 +840,16 @@
                     await loadProductsFromAPI();
                     updateDashboard();
                 } else {
+                    console.error('❌ Update failed:', data);
                     showMessage(data.message || data.error || 'Error al guardar producto', 'error');
+                    
+                    // Show debug info in console
+                    if (data.debug) {
+                        console.log('🐛 Debug info:', data.debug);
+                    }
+                    if (data.availableProducts) {
+                        console.log('📋 Available products:', data.availableProducts);
+                    }
                 }
             } catch (error) {
                 console.error('Submit error:', error);

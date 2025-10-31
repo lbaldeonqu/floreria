@@ -47,10 +47,12 @@ const saveProductsToStorage = (data) => {
 };
 
 exports.handler = async (event, context) => {
-  console.log('Update product function called');
-  console.log('Method:', event.httpMethod);
-  console.log('Query params:', event.queryStringParameters);
-  console.log('Body:', event.body);
+  console.log('🔄 Update product function called');
+  console.log('📝 Method:', event.httpMethod);
+  console.log('🔗 Full URL Path:', event.path);
+  console.log('🔍 Query params:', event.queryStringParameters);
+  console.log('📦 Body length:', event.body ? event.body.length : 'No body');
+  console.log('🎯 Raw body:', event.body);
   
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -84,13 +86,19 @@ exports.handler = async (event, context) => {
       productId = parseInt(event.queryStringParameters.id);
     }
 
-    console.log('Product ID to update:', productId);
+    console.log('🆔 Product ID to update:', productId);
+    console.log('🔢 Product ID type:', typeof productId);
 
-    if (!productId) {
+    if (!productId || isNaN(productId)) {
+      console.log('❌ Invalid product ID provided');
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ message: 'Product ID is required (use ?id=123)' })
+        body: JSON.stringify({ 
+          message: 'Product ID is required and must be a number (use ?id=123)',
+          providedId: productId,
+          queryParams: event.queryStringParameters
+        })
       };
     }
 
@@ -105,26 +113,46 @@ exports.handler = async (event, context) => {
     let productData;
     try {
       productData = JSON.parse(event.body);
+      console.log('✅ Parsed product data:', JSON.stringify(productData, null, 2));
     } catch (parseError) {
+      console.log('❌ JSON parse error:', parseError.message);
+      console.log('📝 Raw body was:', event.body);
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ message: 'Invalid JSON in request body' })
+        body: JSON.stringify({ 
+          message: 'Invalid JSON in request body',
+          parseError: parseError.message,
+          rawBody: event.body
+        })
       };
     }
 
     // Get current products
     const products = getProductsFromStorage();
+    console.log('📊 Available categories:', Object.keys(products));
+    console.log('📦 Total products in each category:');
+    Object.keys(products).forEach(cat => {
+      console.log(`   ${cat}: ${products[cat].length} products`);
+    });
 
     // Find and update product in all categories
     let productFound = false;
     let updatedProduct = null;
+    let searchDetails = [];
 
     for (const category in products) {
       const categoryProducts = products[category];
+      console.log(`🔍 Searching in category '${category}' for ID ${productId}`);
+      
+      categoryProducts.forEach((p, index) => {
+        searchDetails.push(`${category}[${index}]: ID=${p.id}, name="${p.name}"`);
+      });
+      
       const productIndex = categoryProducts.findIndex(p => p.id === productId);
       
       if (productIndex !== -1) {
+        console.log(`✅ Found product at ${category}[${productIndex}]`);
         updatedProduct = {
           ...categoryProducts[productIndex],
           ...productData,
@@ -136,26 +164,44 @@ exports.handler = async (event, context) => {
         break;
       }
     }
+    
+    if (!productFound) {
+      console.log('❌ Product not found! Search details:');
+      searchDetails.forEach(detail => console.log(`   ${detail}`));
+    }
 
     if (!productFound) {
+      console.log('❌ Product not found in any category');
       return {
         statusCode: 404,
         headers,
-        body: JSON.stringify({ message: 'Product not found' })
+        body: JSON.stringify({ 
+          message: 'Product not found',
+          searchedId: productId,
+          availableProducts: searchDetails
+        })
       };
     }
 
     // Save updated products
-    saveProductsToStorage(products);
+    const saveResult = saveProductsToStorage(products);
+    console.log('💾 Save result:', saveResult);
 
-    console.log('Product updated successfully:', updatedProduct.name);
+    console.log('✅ Product updated successfully:', updatedProduct.name);
+    console.log('🎯 Updated product data:', JSON.stringify(updatedProduct, null, 2));
     
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         message: 'Product updated successfully',
-        product: updatedProduct
+        product: updatedProduct,
+        debug: {
+          foundInCategory: Object.keys(products).find(cat => 
+            products[cat].some(p => p.id === productId)
+          ),
+          totalCategories: Object.keys(products).length
+        }
       })
     };
 
