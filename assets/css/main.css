@@ -1,0 +1,17 @@
+/* Lima Rose Florería - Main Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Import all component styles */
+@import 'base.css';
+@import 'header.css';
+@import 'products.css';
+@import 'cart.css';
+@import 'modals.css';
+@import 'sections.css';
+@import 'footer.css';
+@import 'utilities.css';
+
+/* Debug styles for development */
+@media screen {
+    @import 'debug.css';
+}

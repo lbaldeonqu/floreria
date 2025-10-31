@@ -1,0 +1,83 @@
+/* Debug Styles - Only for development */
+
+/* Visual indicators for debugging */
+.debug-mode {
+    position: relative;
+}
+
+.debug-mode .product-card::after {
+    content: 'ID: ' attr(data-product-id);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.debug-mode .product-name::after {
+    content: ' 🔍';
+    color: #007bff;
+    font-size: 12px;
+}
+
+.debug-mode .product-image::after {
+    content: '📷';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 123, 255, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    pointer-events: none;
+}
+
+/* Console log styles */
+.console-debug {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #00ff00;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    max-width: 300px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10000;
+    display: none;
+}
+
+.console-debug.visible {
+    display: block;
+}
+
+.console-debug .log-entry {
+    margin-bottom: 5px;
+    padding: 2px 0;
+    border-bottom: 1px solid #333;
+}
+
+.console-debug .log-error {
+    color: #ff4444;
+}
+
+.console-debug .log-warn {
+    color: #ffaa00;
+}
+
+.console-debug .log-info {
+    color: #00aaff;
+}
+
+.console-debug .log-success {
+    color: #00ff00;
+}

@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lima Rose Florería - Flores frescas para toda ocasión</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="announcement">
+                    <i class="fas fa-truck"></i>
+                    ENVÍOS PARA HOY - ¡Compra hasta las 3pm!
+                </div>
+                <div class="header-social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>Lima Rose Florería</h1>
+                    </div>
+                    
+                    <nav class="main-nav">
+                        <ul>
+                            <li class="dropdown">
+                                <a href="#">Categorías <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="#productos" onclick="filterByCategory('ramos')">Ramos</a>
+                                    <a href="#productos" onclick="filterByCategory('mini ramos')">Mini Ramos</a>
+                                    <a href="#productos" onclick="filterByCategory('cajas')">Cajas</a>
+                                    <a href="#productos" onclick="filterByCategory('cajas')">Cajas Clásicas</a>
+                                    <a href="#productos" onclick="filterByCategory('barriles')">Barriles</a>
+                                    <a href="#productos" onclick="filterByCategory('orquídeas')">Orquídeas</a>
+                                    <a href="#productos" onclick="filterByCategory('plantas')">Papelería</a>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#">Ocasiones <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="#productos" onclick="filterByOccasion('cumpleaños')">Cumpleaños</a>
+                                    <a href="#productos" onclick="filterByOccasion('amor')">Aniversarios</a>
+                                    <a href="#productos" onclick="filterByOccasion('amor')">Amor</a>
+                                    <a href="#productos" onclick="filterByOccasion('eventos')">Graduaciones</a>
+                                    <a href="#productos" onclick="filterByOccasion('matrimonios')">Matrimonios</a>
+                                    <a href="#productos" onclick="filterByOccasion('cumpleaños')">Nacimientos</a>
+                                </div>
+                            </li>
+                            <li><a href="#contacto">Contacto</a></li>
+                            <li><a href="admin-new.html" style="background: rgba(214, 51, 132, 0.1); border-radius: 20px; padding: 8px 15px;"><i class="fas fa-cog"></i> Admin</a></li>
+                        </ul>
+                    </nav>
+                    
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Buscar productos...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="user-menu">
+                            <button class="login-btn" onclick="openLoginModal()">
+                                <i class="fas fa-user"></i>
+                                Mi Cuenta
+                            </button>
+                        </div>
+                        <div class="cart-btn" onclick="toggleCart()">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-count">0</span>
+                            <span class="cart-total">S/ 0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=75" alt="Flores hermosas">
+                <div class="hero-content">
+                    <h2>Flores Frescas para Toda Ocasión</h2>
+                    <p>Descubre nuestra amplia variedad de arreglos florales únicos y especiales</p>
+                    <a href="#productos" class="btn-primary">Ver Productos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Filter -->
+    <section class="product-filter">
+        <div class="container">
+            <div class="filter-controls">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="destacados">Destacados</button>
+                    <button class="filter-tab" data-filter="ofertas">Ofertas</button>
+                    <button class="filter-tab" data-filter="vendidos">Más vendidos</button>
+                    <button class="filter-tab" data-filter="especiales">Especiales</button>
+                </div>
+                
+                <div class="advanced-filters">
+                    <button class="filter-toggle" onclick="toggleAdvancedFilters()">
+                        <i class="fas fa-sliders-h"></i>
+                        Filtros
+                    </button>
+                    
+                    <div class="filters-dropdown" id="filters-dropdown">
+                        <div class="filter-group">
+                            <label>Categoría</label>
+                            <select id="category-filter">
+                                <option value="">Todas las categorías</option>
+                                <option value="ramos">Ramos</option>
+                                <option value="mini ramos">Mini Ramos</option>
+                                <option value="cajas">Cajas</option>
+                                <option value="barriles">Barriles</option>
+                                <option value="orquídeas">Orquídeas</option>
+                                <option value="plantas">Plantas</option>
+                                <option value="postres">Postres</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>Precio</label>
+                            <select id="price-filter">
+                                <option value="">Cualquier precio</option>
+                                <option value="0-100">S/ 0 - S/ 100</option>
+                                <option value="100-200">S/ 100 - S/ 200</option>
+                                <option value="200-300">S/ 200 - S/ 300</option>
+                                <option value="300+">S/ 300+</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>Ocasión</label>
+                            <select id="occasion-filter">
+                                <option value="">Cualquier ocasión</option>
+                                <option value="amor">Amor y Romance</option>
+                                <option value="cumpleaños">Cumpleaños</option>
+                                <option value="matrimonios">Matrimonios</option>
+                                <option value="condolencias">Condolencias</option>
+                                <option value="eventos">Eventos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-actions">
+                            <button class="btn-apply" onclick="applyFilters()">Aplicar</button>
+                            <button class="btn-clear" onclick="clearFilters()">Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="productos">
+        <div class="container">
+            <h2 class="section-title" id="products-title">Favoritos por categoría</h2>
+            <div class="filter-breadcrumb" id="filter-breadcrumb" style="display: none;">
+                <span class="breadcrumb-text">Mostrando: </span>
+                <span class="current-filter" id="current-filter"></span>
+                <button class="clear-filter-btn" onclick="clearCategoryFilter()">
+                    <i class="fas fa-times"></i> Ver todos
+                </button>
+            </div>
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Envío Rápido</h3>
+                    <p>Entrega el mismo día si ordenas antes de las 3pm</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Flores Frescas</h3>
+                    <p>Garantizamos la frescura de nuestras flores por más de 7 días</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Diseño Personalizado</h3>
+                    <p>Creamos arreglos únicos según tus preferencias</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Compra Segura</h3>
+                    <p>Pagos 100% seguros con todas las tarjetas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Increíble servicio, las flores llegaron perfectas y el arreglo superó mis expectativas. Definitivamente volveré a comprar."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="María González">
+                            <div class="author-info">
+                                <h4>María González</h4>
+                                <span>San Isidro, Lima</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Excelente atención al cliente. Me ayudaron a elegir el ramo perfecto para el cumpleaños de mi madre. Llegó puntual y hermoso."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Carlos Mendoza">
+                            <div class="author-info">
+                                <h4>Carlos Mendoza</h4>
+                                <span>Miraflores, Lima</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Las flores más frescas de Lima. El diseño floral es espectacular y los precios son muy competitivos. Recomendado 100%."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Ana Ruiz">
+                            <div class="author-info">
+                                <h4>Ana Ruiz</h4>
+                                <span>La Molina, Lima</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Gallery -->
+    <section class="instagram-gallery">
+        <div class="container">
+            <h2 class="section-title">Síguenos en Instagram</h2>
+            <p class="gallery-subtitle">Descubre nuestros últimos arreglos florales</p>
+            <div class="instagram-grid">
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Arreglo floral">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ramo de novia">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1591886960571-74d43a9d4166?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Caja de flores">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1583743089695-4b816a340f82?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Orquídeas">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Rosas rojas">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Decoración evento">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="instagram-follow">
+                <a href="#" class="btn-secondary">
+                    <i class="fab fa-instagram"></i>
+                    Seguir @limaroseflores
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/Tips Section -->
+    <section class="blog-tips">
+        <div class="container">
+            <h2 class="section-title">Consejos y Cuidados</h2>
+            <p class="section-subtitle">Aprende a cuidar tus flores y descubre ideas para ocasiones especiales</p>
+            
+            <div class="tips-grid">
+                <article class="tip-card">
+                    <div class="tip-image">
+                        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cuidado de flores">
+                    </div>
+                    <div class="tip-content">
+                        <span class="tip-category">Cuidados</span>
+                        <h3>Cómo hacer que tus flores duren más</h3>
+                        <p>Descubre los secretos para mantener tus flores frescas por más tiempo con estos consejos profesionales.</p>
+                        <a href="#" class="tip-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="tip-card">
+                    <div class="tip-image">
+                        <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Arreglos para bodas">
+                    </div>
+                    <div class="tip-content">
+                        <span class="tip-category">Ocasiones</span>
+                        <h3>Flores perfectas para tu boda</h3>
+                        <p>Guía completa para elegir las flores ideales según la temporada y estilo de tu matrimonio.</p>
+                        <a href="#" class="tip-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="tip-card">
+                    <div class="tip-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Significado de colores">
+                    </div>
+                    <div class="tip-content">
+                        <span class="tip-category">Significados</span>
+                        <h3>El significado de los colores</h3>
+                        <p>Aprende qué emociones y mensajes transmites según los colores de flores que elijas.</p>
+                        <a href="#" class="tip-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="tips-cta">
+                <a href="#" class="btn-secondary">Ver todos los consejos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h3>Suscríbete a nuestro newsletter</h3>
+                <p>Recibe ofertas especiales y novedades sobre nuestros productos</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico">
+                    <button type="submit">Suscribirse</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contacto">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>¿Tienes dudas o consultas?</h2>
+                    <p>Si tienes dudas o consultas, puedes contactarte con nosotros.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Teléfono</h4>
+                                <p>+51 977 713 388</p>
+                                <span>Lunes a Sábado 9:00 AM - 8:00 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Correo Electrónico</h4>
+                                <p>contacto@limarose.pe</p>
+                                <span>Respuesta en menos de 24 horas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>WhatsApp</h4>
+                                <p>+51 977 713 388</p>
+                                <span>Atención inmediata</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Ubicación</h4>
+                                <p>Av. José Larco 1234, Miraflores</p>
+                                <span>Lima, Perú</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="business-hours">
+                        <h3>Horarios de Atención</h3>
+                        <div class="hours-grid">
+                            <div class="day-hours">
+                                <span class="day">Lunes - Viernes</span>
+                                <span class="time">9:00 AM - 8:00 PM</span>
+                            </div>
+                            <div class="day-hours">
+                                <span class="day">Sábado</span>
+                                <span class="time">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="day-hours">
+                                <span class="day">Domingo</span>
+                                <span class="time">10:00 AM - 4:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <h3>Envíanos un mensaje</h3>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Correo Electrónico</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Asunto</label>
+                            <select name="subject" required>
+                                <option value="">Selecciona un asunto</option>
+                                <option value="consulta">Consulta General</option>
+                                <option value="pedido">Consulta sobre Pedido</option>
+                                <option value="delivery">Información de Delivery</option>
+                                <option value="personalizado">Arreglo Personalizado</option>
+                                <option value="eventos">Eventos y Celebraciones</option>
+                                <option value="reclamo">Reclamo o Sugerencia</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Mensaje</label>
+                            <textarea name="message" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-send-message">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Lima Rose Florería</h4>
+                    <p>Somos una florería con una amplia variedad de flores frescas y exóticas para cualquier ocasión.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Información</h4>
+                    <ul>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#">Libro de reclamaciones</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Servicio al Cliente</h4>
+                    <ul>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Seguimiento de pedidos</a></li>
+                        <li><a href="#">Política de devoluciones</a></li>
+                        <li><a href="#">Guía de cuidado</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Métodos de Pago</h4>
+                    <div class="payment-methods">
+                        <img src="https://via.placeholder.com/40x25/666/fff?text=VISA" alt="Visa">
+                        <img src="https://via.placeholder.com/40x25/666/fff?text=MC" alt="Mastercard">
+                        <img src="https://via.placeholder.com/40x25/666/fff?text=AMEX" alt="Amex">
+                        <img src="https://via.placeholder.com/40x25/666/fff?text=UP" alt="UnionPay">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Lima Rose Florería. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Tu carrito</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <span>Subtotal: <strong id="cart-subtotal">S/ 0.00</strong></span>
+            </div>
+            <button class="checkout-btn">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Login/Register Modal -->
+    <div class="modal-overlay" id="login-modal-overlay" onclick="closeLoginModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modal-title">Iniciar Sesión</h3>
+                <button class="close-modal" onclick="closeLoginModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Iniciar Sesión</button>
+                    <p class="form-switch">
+                        ¿No tienes cuenta? 
+                        <a href="#" onclick="switchToRegister()">Regístrate aquí</a>
+                    </p>
+                </form>
+                
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" placeholder="Tu nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" placeholder="+51 999 999 999" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Contraseña</label>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Crear Cuenta</button>
+                    <p class="form-switch">
+                        ¿Ya tienes cuenta? 
+                        <a href="#" onclick="switchToLogin()">Inicia sesión</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal-overlay" onclick="closeCheckoutModal()">
+        <div class="modal large" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Finalizar Compra</h3>
+                <button class="close-modal" onclick="closeCheckoutModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="checkout-container">
+                    <div class="checkout-form">
+                        <form id="checkout-form">
+                            <div class="form-section">
+                                <h4><i class="fas fa-user"></i> Datos Personales</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Nombre Completo</label>
+                                        <input type="text" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Teléfono</label>
+                                        <input type="tel" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4><i class="fas fa-map-marker-alt"></i> Dirección de Entrega</h4>
+                                <div class="form-group">
+                                    <label>Distrito</label>
+                                    <select required>
+                                        <option value="">Seleccionar distrito</option>
+                                        <option value="miraflores">Miraflores - S/ 15.00</option>
+                                        <option value="san-isidro">San Isidro - S/ 15.00</option>
+                                        <option value="surco">Surco - S/ 20.00</option>
+                                        <option value="la-molina">La Molina - S/ 20.00</option>
+                                        <option value="san-borja">San Borja - S/ 18.00</option>
+                                        <option value="barranco">Barranco - S/ 15.00</option>
+                                        <option value="chorrillos">Chorrillos - S/ 25.00</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Dirección Completa</label>
+                                    <textarea placeholder="Av. Principal 123, Dpto. 402" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Referencia</label>
+                                    <input type="text" placeholder="Edificio azul, frente al parque">
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4><i class="fas fa-calendar"></i> Fecha y Hora de Entrega</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Fecha</label>
+                                        <input type="date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Hora</label>
+                                        <select required>
+                                            <option value="">Seleccionar hora</option>
+                                            <option value="morning">9:00 AM - 12:00 PM</option>
+                                            <option value="afternoon">2:00 PM - 6:00 PM</option>
+                                            <option value="evening">6:00 PM - 9:00 PM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4><i class="fas fa-credit-card"></i> Método de Pago</h4>
+                                <div class="payment-options">
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="card" checked>
+                                        <div class="payment-content">
+                                            <i class="fas fa-credit-card"></i>
+                                            <span>Tarjeta de Crédito/Débito</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="yape">
+                                        <div class="payment-content">
+                                            <i class="fas fa-mobile-alt"></i>
+                                            <span>Yape / Plin</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="transfer">
+                                        <div class="payment-content">
+                                            <i class="fas fa-university"></i>
+                                            <span>Transferencia Bancaria</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <label>
+                                    <input type="checkbox" required>
+                                    Acepto los <a href="#">términos y condiciones</a>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="order-summary">
+                        <h4>Resumen del Pedido</h4>
+                        <div class="summary-items" id="checkout-items"></div>
+                        <div class="summary-totals">
+                            <div class="total-line">
+                                <span>Subtotal:</span>
+                                <span id="checkout-subtotal">S/ 0.00</span>
+                            </div>
+                            <div class="total-line">
+                                <span>Delivery:</span>
+                                <span id="delivery-cost">S/ 0.00</span>
+                            </div>
+                            <div class="total-line total">
+                                <span>Total:</span>
+                                <span id="checkout-total">S/ 0.00</span>
+                            </div>
+                        </div>
+                        <button type="submit" form="checkout-form" class="btn-primary full-width">
+                            Confirmar Pedido
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="product-detail-overlay" onclick="closeProductDetail()">
+        <div class="modal product-detail-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="product-detail-title">Detalle del Producto</h3>
+                <button class="close-modal" onclick="closeProductDetail()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="product-detail-container">
+                    <!-- Product Images Gallery -->
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img id="main-product-image" src="" alt="Producto">
+                            <div class="image-badges" id="product-badges"></div>
+                        </div>
+                        <div class="thumbnail-gallery">
+                            <div class="thumbnail active">
+                                <img src="" alt="Vista 1">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="" alt="Vista 2">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="" alt="Vista 3">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="" alt="Vista 4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Information -->
+                    <div class="product-info-detail">
+                        <div class="breadcrumb">
+                            <span>Lima Rose</span>
+                            <i class="fas fa-chevron-right"></i>
+                            <span id="product-category">Categoría</span>
+                            <i class="fas fa-chevron-right"></i>
+                            <span id="product-name-breadcrumb">Producto</span>
+                        </div>
+
+                        <h1 id="product-detail-name">Nombre del Producto</h1>
+                        
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.8) • 124 reseñas</span>
+                        </div>
+
+                        <div class="product-price-detail">
+                            <span class="current-price-detail" id="product-price-detail">S/ 0.00</span>
+                            <span class="original-price-detail" id="product-original-price-detail"></span>
+                            <div class="discount-badge" id="product-discount-badge"></div>
+                        </div>
+
+                        <div class="product-description">
+                            <h3>Descripción</h3>
+                            <p id="product-description-text">Descripción detallada del producto...</p>
+                        </div>
+
+                        <div class="product-features">
+                            <h3>Características</h3>
+                            <ul>
+                                <li><i class="fas fa-leaf"></i> Flores frescas de la mejor calidad</li>
+                                <li><i class="fas fa-truck"></i> Entrega el mismo día disponible</li>
+                                <li><i class="fas fa-heart"></i> Diseñado por floristas expertos</li>
+                                <li><i class="fas fa-gift"></i> Incluye tarjeta de dedicatoria</li>
+                            </ul>
+                        </div>
+
+                        <div class="delivery-info">
+                            <h3>Información de Entrega</h3>
+                            <div class="delivery-options">
+                                <div class="delivery-option">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <strong>Entrega Rápida</strong>
+                                        <span>Mismo día si ordenas antes de las 3pm</span>
+                                    </div>
+                                </div>
+                                <div class="delivery-option">
+                                    <i class="fas fa-calendar"></i>
+                                    <div>
+                                        <strong>Fecha Programada</strong>
+                                        <span>Elige la fecha perfecta para tu entrega</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-options">
+                            <div class="quantity-selector">
+                                <label>Cantidad</label>
+                                <div class="quantity-controls">
+                                    <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
+                                    <input type="number" id="product-quantity" value="1" min="1" max="10">
+                                    <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                                </div>
+                            </div>
+
+                            <div class="add-note">
+                                <label>Mensaje en tarjeta (opcional)</label>
+                                <textarea id="product-note" placeholder="Escribe un mensaje especial..." maxlength="100"></textarea>
+                                <small>Máximo 100 caracteres</small>
+                            </div>
+                        </div>
+
+                        <div class="product-actions">
+                            <button class="btn-add-cart" onclick="addToCartFromDetail()">
+                                <i class="fas fa-shopping-bag"></i>
+                                Agregar al Carrito
+                            </button>
+                            <button class="btn-buy-now" onclick="buyNowFromDetail()">
+                                <i class="fas fa-bolt"></i>
+                                Comprar Ahora
+                            </button>
+                            <button class="btn-wishlist" onclick="toggleWishlist()">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="share-product">
+                            <h4>Compartir</h4>
+                            <div class="share-buttons">
+                                <a href="#" class="share-btn facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="share-btn whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="share-btn twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="share-btn copy" onclick="copyProductLink()">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Reviews Section -->
+                <div class="product-reviews">
+                    <h3>Reseñas de Clientes</h3>
+                    <div class="reviews-summary">
+                        <div class="rating-overview">
+                            <div class="overall-rating">
+                                <span class="rating-number">4.8</span>
+                                <div class="stars-large">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="reviews-count">124 reseñas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reviews-list">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="Cliente">
+                                    <div>
+                                        <h5>María P.</h5>
+                                        <div class="review-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="review-date">15 Oct 2025</span>
+                            </div>
+                            <p class="review-text">"Hermoso arreglo, las flores llegaron frescas y el diseño fue exactamente lo que esperaba. Excelente servicio!"</p>
+                        </div>
+
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="Cliente">
+                                    <div>
+                                        <h5>Carlos M.</h5>
+                                        <div class="review-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="review-date">12 Oct 2025</span>
+                            </div>
+                            <p class="review-text">"Perfecto para el cumpleaños de mi esposa. La entrega fue puntual y el ramo superó nuestras expectativas."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Products -->
+                <div class="related-products">
+                    <h3>Productos Relacionados</h3>
+                    <div class="related-grid" id="related-products-grid">
+                        <!-- Related products will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://api.whatsapp.com/send/?phone=51977713388&text=%C2%A1Hola!+Tengo+una+consulta+o+solicitud." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script></script>
+</body>
+</html>

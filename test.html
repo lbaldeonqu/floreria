@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Lima Rose Florería</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: #f8f9fa;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🌸 Test de Módulos - Lima Rose Florería</h1>
+        <div id="status-container">
+            <div class="status info">
+                <i class="fas fa-spinner fa-spin"></i> Iniciando pruebas...
+            </div>
+        </div>
+
+        <div class="products-section" style="margin-top: 30px;">
+            <h2>Productos de Prueba</h2>
+            <div class="product-filter">
+                <div class="container">
+                    <div class="filter-controls">
+                        <div class="filter-tabs">
+                            <!-- Los tabs se generarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="products-grid">
+                    <!-- Los productos se generarán dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration -->
+    <script>
+        window.AppConfig = {
+            api: { baseUrl: '/api' },
+            shipping: { cost: 15.00, freeThreshold: 100.00 },
+            tax: { rate: 0.18 },
+            contact: {
+                phone: '+51977713388',
+                email: 'info@limarose.com',
+                whatsapp: 'https://api.whatsapp.com/send/?phone=51977713388&text=%C2%A1Hola!+Tengo+una+consulta+o+solicitud.'
+            }
+        };
+
+        // Test functions
+        function addStatus(message, type = 'info') {
+            const container = document.getElementById('status-container');
+            const status = document.createElement('div');
+            status.className = `status ${type}`;
+            status.innerHTML = message;
+            container.appendChild(status);
+        }
+
+        // Test module loading
+        window.addEventListener('load', async () => {
+            try {
+                addStatus('<i class="fas fa-check"></i> DOM cargado correctamente', 'success');
+                
+                // Test if modules are loading
+                setTimeout(() => {
+                    if (window.floreriaApp) {
+                        addStatus('<i class="fas fa-check"></i> Aplicación inicializada', 'success');
+                        
+                        if (window.productsManager) {
+                            addStatus('<i class="fas fa-check"></i> Gestor de productos disponible', 'success');
+                            
+                            // Test products loading
+                            const products = window.productsManager.products;
+                            if (products && products.length > 0) {
+                                addStatus(`<i class="fas fa-check"></i> ${products.length} productos cargados`, 'success');
+                            } else {
+                                addStatus('<i class="fas fa-exclamation-triangle"></i> No se cargaron productos', 'error');
+                            }
+                        } else {
+                            addStatus('<i class="fas fa-times"></i> Gestor de productos no disponible', 'error');
+                        }
+                        
+                        if (window.cartManager) {
+                            addStatus('<i class="fas fa-check"></i> Gestor de carrito disponible', 'success');
+                        } else {
+                            addStatus('<i class="fas fa-times"></i> Gestor de carrito no disponible', 'error');
+                        }
+                        
+                        if (window.modalManager) {
+                            addStatus('<i class="fas fa-check"></i> Gestor de modales disponible', 'success');
+                        } else {
+                            addStatus('<i class="fas fa-times"></i> Gestor de modales no disponible', 'error');
+                        }
+                        
+                    } else {
+                        addStatus('<i class="fas fa-times"></i> Aplicación no se inicializó', 'error');
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                addStatus(`<i class="fas fa-times"></i> Error: ${error.message}`, 'error');
+                console.error('Error en test:', error);
+            }
+        });
+
+        // Test clicking on products
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.product-card')) {
+                const productCard = e.target.closest('.product-card');
+                const productId = productCard.dataset.productId;
+                addStatus(`<i class="fas fa-mouse-pointer"></i> Click en producto ID: ${productId}`, 'info');
+            }
+        });
+    </script>
+    
+    <!-- Main Application -->
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Ramo Emma",
+      "category": "ramos",
+      "price": 209.9,
+      "originalPrice": 249.9,
+      "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop&crop=center&q=80",
+      "description": "Elegante ramo con rosas mixtas y flores de temporada, perfecto para expresar sentimientos especiales.",
+      "inStock": true,
+      "featured": true,
+      "rating": 4.8,
+      "reviews": 124,
+      "tags": [
+        "romántico",
+        "elegante",
+        "premium"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Mini Ramo Catalina",
+      "category": "ramos",
+      "price": 119.9,
+      "originalPrice": 149.9,
+      "image": "https://images.unsplash.com/photo-1563582420-f7b9e5c5f8c2?w=300&h=300&fit=crop&crop=center&q=80",
+      "description": "Hermoso mini ramo ideal para ocasiones íntimas, diseñado con flores selectas de la mejor calidad.",
+      "inStock": true,
+      "featured": true,
+      "rating": 4.9,
+      "reviews": 87,
+      "tags": [
+        "mini",
+        "íntimo",
+        "calidad"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Ramo Nerea",
+      "category": "ramos",
+      "price": 209.9,
+      "originalPrice": 219.9,
+      "image": "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=300&h=300&fit=crop&crop=center&q=80",
+      "description": "Ramo clásico con combinación perfecta de colores y texturas que transmiten elegancia y sofisticación.",
+      "inStock": true,
+      "featured": false,
+      "rating": 4.7,
+      "reviews": 92,
+      "tags": [
+        "clásico",
+        "elegante",
+        "sofisticado"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Caja Clásica Alba",
+      "category": "Cajas Clásicas",
+      "price": 199.9,
+      "originalPrice": 229.9,
+      "discount": 30,
+      "image": "https://images.unsplash.com/photo-1591886960571-74d43a9d4166?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": "SALE",
+      "description": "Elegante caja con flores cuidadosamente seleccionadas, presentada en empaque premium reutilizable.",
+      "features": [
+        "Caja reutilizable",
+        "Arreglo único",
+        "Flores premium",
+        "Diseño exclusivo"
+      ],
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 156
+    },
+    {
+      "id": 5,
+      "name": "Orquídea Blanca",
+      "category": "Orquídeas",
+      "price": 159.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1583743089695-4b816a340f82?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Exótica orquídea blanca de larga duración, perfecta para decoración o regalo especial.",
+      "features": [
+        "Larga duración",
+        "Planta natural",
+        "Maceta incluida",
+        "Cuidados incluidos"
+      ],
+      "inStock": true,
+      "rating": 4.9,
+      "reviewCount": 73
+    },
+    {
+      "id": 6,
+      "name": "Mini Ramo Matilda",
+      "category": "Mini Ramos",
+      "price": 139.9,
+      "originalPrice": 159.9,
+      "discount": 20,
+      "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": "SALE",
+      "description": "Mini ramo delicado con flores tiernas en tonos suaves, ideal para expresar cariño y dulzura.",
+      "features": [
+        "Diseño delicado",
+        "Colores suaves",
+        "Tamaño perfecto",
+        "Empaque premium"
+      ],
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 64
+    }
+  ],
+  "ofertas": [
+    {
+      "id": 7,
+      "name": "Ramo Halloween Especial",
+      "category": "Ramos",
+      "price": 119.9,
+      "originalPrice": 149.9,
+      "discount": 30,
+      "image": "https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": "SALE",
+      "description": "Ramo temático especial para Halloween con flores en tonos oscuros y detalles únicos.",
+      "features": [
+        "Temática especial",
+        "Colores únicos",
+        "Diseño creativo",
+        "Edición limitada"
+      ],
+      "inStock": true,
+      "rating": 4.5,
+      "reviewCount": 45
+    },
+    {
+      "id": 8,
+      "name": "Caja de Rosas Rojas",
+      "category": "Cajas",
+      "price": 189.9,
+      "originalPrice": 299.9,
+      "discount": 110,
+      "image": "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": "SALE",
+      "description": "Impresionante caja con rosas rojas premium, símbolo perfecto del amor y la pasión.",
+      "features": [
+        "Rosas premium",
+        "Caja elegante",
+        "Máxima frescura",
+        "Presentación luxury"
+      ],
+      "inStock": true,
+      "rating": 4.9,
+      "reviewCount": 203
+    },
+    {
+      "id": 9,
+      "name": "Mini Ramo Bianca",
+      "category": "Mini Ramos",
+      "price": 139.9,
+      "originalPrice": 159.9,
+      "discount": 20,
+      "image": "https://images.unsplash.com/photo-1563582420-f7b9e5c5f8c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": "SALE",
+      "description": "Mini ramo en tonos blancos y pasteles, perfecto para ocasiones especiales y celebraciones.",
+      "features": [
+        "Tonos blancos",
+        "Estilo romántico",
+        "Diseño elegante",
+        "Tamaño ideal"
+      ],
+      "inStock": true,
+      "rating": 4.7,
+      "reviewCount": 89
+    },
+    {
+      "id": 1761946642743,
+      "name": "Halloween - Ramo Bleed For You",
+      "price": 150,
+      "category": "ramos",
+      "occasion": "eventos",
+      "image": "/uploads/product-1761946642694-250583395.jpg",
+      "originalPrice": 200,
+      "discount": 50,
+      "badge": null,
+      "description": "Ramo floral para hallowen muy bonito",
+      "filter": "ofertas",
+      "created_at": "2025-10-31T21:37:22.743Z",
+      "updated_at": "2025-10-31T21:37:22.744Z"
+    }
+  ],
+  "vendidos": [
+    {
+      "id": 10,
+      "name": "Ramo Clásico Rojo",
+      "category": "Ramos",
+      "price": 179.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Elegante ramo de rosas rojas perfectas para expresar amor y pasión en cualquier ocasión especial.",
+      "features": [
+        "Rosas rojas premium",
+        "Diseño clásico",
+        "Arreglo tradicional",
+        "Máxima calidad"
+      ],
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 267
+    },
+    {
+      "id": 11,
+      "name": "Caja Premium",
+      "category": "Cajas",
+      "price": 249.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1591886960571-74d43a9d4166?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Caja de lujo con flores mixtas de la más alta calidad, presentación impecable para ocasiones especiales.",
+      "features": [
+        "Calidad premium",
+        "Caja luxury",
+        "Flores selectas",
+        "Presentación impecable"
+      ],
+      "inStock": true,
+      "rating": 4.9,
+      "reviewCount": 198
+    },
+    {
+      "id": 12,
+      "name": "Barril de Flores",
+      "category": "Barriles",
+      "price": 199.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Hermoso barril rústico con flores variadas de temporada, perfecto para decoración y regalos.",
+      "features": [
+        "Estilo rústico",
+        "Flores de temporada",
+        "Diseño único",
+        "Decorativo"
+      ],
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 145
+    },
+    {
+      "id": 13,
+      "name": "Ramo de Girasoles",
+      "category": "Ramos",
+      "price": 159.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Brillantes girasoles que transmiten alegría y energía positiva, perfectos para alegrar cualquier día.",
+      "features": [
+        "Girasoles frescos",
+        "Energía positiva",
+        "Colores vibrantes",
+        "Alegría garantizada"
+      ],
+      "inStock": true,
+      "rating": 4.7,
+      "reviewCount": 112
+    },
+    {
+      "id": 14,
+      "name": "Torta de Chocolate",
+      "category": "Postres",
+      "price": 89.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": "NUEVO",
+      "description": "Deliciosa torta de chocolate artesanal, perfecta para acompañar las flores en ocasiones especiales.",
+      "features": [
+        "Artesanal",
+        "Chocolate premium",
+        "Receta especial",
+        "Acompaña flores"
+      ],
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 76
+    },
+    {
+      "id": 15,
+      "name": "Planta Suculenta Premium",
+      "category": "Plantas",
+      "price": 45.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1509587584298-0f3b3a3a1797?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Hermosa suculenta en maceta decorativa, regalo perfecto y duradero que requiere mínimo cuidado.",
+      "features": [
+        "Larga duración",
+        "Bajo mantenimiento",
+        "Maceta incluida",
+        "Regalo duradero"
+      ],
+      "inStock": true,
+      "rating": 4.5,
+      "reviewCount": 89
+    }
+  ],
+  "especiales": [
+    {
+      "id": 16,
+      "name": "Ramo Nupcial Elegante",
+      "category": "Matrimonios",
+      "price": 399.9,
+      "originalPrice": 459.9,
+      "discount": 60,
+      "image": "https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": "EXCLUSIVO",
+      "description": "Ramo nupcial con rosas blancas, peonías y eucalipto. Diseño exclusivo para el día más especial.",
+      "features": [
+        "Diseño nupcial",
+        "Flores exclusivas",
+        "Estilo elegante",
+        "Día especial"
+      ],
+      "inStock": true,
+      "rating": 5,
+      "reviewCount": 34
+    },
+    {
+      "id": 17,
+      "name": "Centro de Mesa Dorado",
+      "category": "Eventos",
+      "price": 299.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Elegante centro de mesa con flores doradas para eventos especiales y celebraciones importantes.",
+      "features": [
+        "Para eventos",
+        "Tonos dorados",
+        "Centro de mesa",
+        "Elegante"
+      ],
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 67
+    },
+    {
+      "id": 18,
+      "name": "Arreglo Funeral",
+      "category": "Condolencias",
+      "price": 179.9,
+      "originalPrice": null,
+      "discount": 0,
+      "image": "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "badge": null,
+      "description": "Respetuoso arreglo floral para expresar condolencias en momentos difíciles, diseñado con sobriedad.",
+      "features": [
+        "Diseño respetuoso",
+        "Condolencias",
+        "Sobrio y elegante",
+        "Momentos difíciles"
+      ],
+      "inStock": true,
+      "rating": 4.9,
+      "reviewCount": 23
+    }
+  ]
+}

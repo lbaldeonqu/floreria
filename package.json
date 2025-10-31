@@ -1,0 +1,28 @@
+{
+  "name": "lima-rose-floreria",
+  "version": "1.0.0",
+  "description": "Sistema de florería con panel de administración - Netlify Functions",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "echo 'Building for Netlify...' && npm install",
+    "netlify-dev": "netlify dev"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "keywords": [
+    "floreria",
+    "ecommerce",
+    "admin",
+    "netlify",
+    "serverless"
+  ],
+  "author": "Lima Rose Florería",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
