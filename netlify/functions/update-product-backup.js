@@ -1,5 +1,50 @@
 // Función específica para editar productos
-const sharedStorage = require('./shared-storage');
+const fs = require('fs');
+
+// Almacenamiento en memoria para Netlify
+let productsStorage = null;
+
+// Default products para inicializar
+const getDefaultProducts = () => ({
+  products: [
+    {
+      id: 1,
+      name: "Ramo Emma",
+      category: "ramos",
+      price: 209.9,
+      originalPrice: 249.9,
+      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop&crop=center&q=80",
+      description: "Elegante ramo con rosas mixtas y flores de temporada.",
+      inStock: true,
+      featured: true,
+      rating: 4.8,
+      reviews: 124,
+      tags: ["romántico", "elegante", "premium"]
+    }
+  ],
+  ofertas: [],
+  vendidos: [],
+  especiales: []
+});
+
+// Get products from storage
+const getProductsFromStorage = () => {
+  if (!productsStorage) {
+    productsStorage = getDefaultProducts();
+  }
+  return productsStorage;
+};
+
+// Save products to storage
+const saveProductsToStorage = (data) => {
+  try {
+    productsStorage = data;
+    return true;
+  } catch (error) {
+    console.error('Error saving to storage:', error);
+    return false;
+  }
+};
 
 exports.handler = async (event, context) => {
   console.log('🔄 Update product function called');
@@ -83,20 +128,64 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Update product using shared storage
-    const updatedProduct = sharedStorage.updateProduct(productId, productData);
+    // Get current products
+    const products = getProductsFromStorage();
+    console.log('📊 Available categories:', Object.keys(products));
+    console.log('📦 Total products in each category:');
+    Object.keys(products).forEach(cat => {
+      console.log(`   ${cat}: ${products[cat].length} products`);
+    });
 
-    if (!updatedProduct) {
+    // Find and update product in all categories
+    let productFound = false;
+    let updatedProduct = null;
+    let searchDetails = [];
+
+    for (const category in products) {
+      const categoryProducts = products[category];
+      console.log(`🔍 Searching in category '${category}' for ID ${productId}`);
+      
+      categoryProducts.forEach((p, index) => {
+        searchDetails.push(`${category}[${index}]: ID=${p.id}, name="${p.name}"`);
+      });
+      
+      const productIndex = categoryProducts.findIndex(p => p.id === productId);
+      
+      if (productIndex !== -1) {
+        console.log(`✅ Found product at ${category}[${productIndex}]`);
+        updatedProduct = {
+          ...categoryProducts[productIndex],
+          ...productData,
+          id: productId,
+          updated_at: new Date().toISOString()
+        };
+        categoryProducts[productIndex] = updatedProduct;
+        productFound = true;
+        break;
+      }
+    }
+    
+    if (!productFound) {
+      console.log('❌ Product not found! Search details:');
+      searchDetails.forEach(detail => console.log(`   ${detail}`));
+    }
+
+    if (!productFound) {
       console.log('❌ Product not found in any category');
       return {
         statusCode: 404,
         headers,
         body: JSON.stringify({ 
           message: 'Product not found',
-          searchedId: productId
+          searchedId: productId,
+          availableProducts: searchDetails
         })
       };
     }
+
+    // Save updated products
+    const saveResult = saveProductsToStorage(products);
+    console.log('💾 Save result:', saveResult);
 
     console.log('✅ Product updated successfully:', updatedProduct.name);
     console.log('🎯 Updated product data:', JSON.stringify(updatedProduct, null, 2));
@@ -106,12 +195,18 @@ exports.handler = async (event, context) => {
       headers,
       body: JSON.stringify({
         message: 'Product updated successfully',
-        product: updatedProduct
+        product: updatedProduct,
+        debug: {
+          foundInCategory: Object.keys(products).find(cat => 
+            products[cat].some(p => p.id === productId)
+          ),
+          totalCategories: Object.keys(products).length
+        }
       })
     };
 
   } catch (error) {
-    console.error('❌ Update product error:', error);
+    console.error('Update product error:', error);
     return {
       statusCode: 500,
       headers,
