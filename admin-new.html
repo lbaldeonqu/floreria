@@ -670,18 +670,33 @@
 
         async function updateDashboard() {
             try {
+                console.log('📊 Loading dashboard stats...');
                 const response = await fetch('/api/stats', {
                     credentials: 'include'
                 });
                 
+                console.log('📡 Stats response status:', response.status);
+                
                 if (response.ok) {
                     const stats = await response.json();
-                    document.getElementById('total-products').textContent = stats.totalProducts;
-                    document.getElementById('total-categories').textContent = stats.totalCategories;
-                    document.getElementById('featured-products').textContent = stats.featuredProducts;
+                    console.log('📈 Stats received:', stats);
+                    
+                    document.getElementById('total-products').textContent = stats.totalProducts || 0;
+                    document.getElementById('total-categories').textContent = stats.totalCategories || 0;
+                    document.getElementById('featured-products').textContent = stats.featuredProducts || 0;
+                } else {
+                    console.error('❌ Stats API error:', response.status, response.statusText);
+                    // Set default values
+                    document.getElementById('total-products').textContent = '-';
+                    document.getElementById('total-categories').textContent = '-';
+                    document.getElementById('featured-products').textContent = '-';
                 }
             } catch (error) {
-                console.error('Error loading stats:', error);
+                console.error('❌ Error loading stats:', error);
+                // Set default values on error
+                document.getElementById('total-products').textContent = 'Error';
+                document.getElementById('total-categories').textContent = 'Error';
+                document.getElementById('featured-products').textContent = 'Error';
             }
         }
 
