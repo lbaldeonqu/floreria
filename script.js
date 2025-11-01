@@ -872,7 +872,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
     return `
         <div class="modal large">
             <div class="modal-header" style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); color: white; text-align: center;">
-                <h3 style="margin: 0; font-size: 24px;"><i class="fas fa-mobile-alt"></i> Paga con YAPE o PLIN 100% seguro</h3>
+                <h3 style="margin: 0; font-size: 26px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="fas fa-mobile-alt" style="margin-right: 10px;"></i>Paga con <span style="color: #ffd700; font-weight: 900;">YAPE</span> o <span style="color: #ffd700; font-weight: 900;">PLIN</span> <span style="color: #90EE90; font-weight: 800;">100% SEGURO</span></h3>
                 <button class="close-modal" onclick="clearCartAndCloseModal(this)" style="color: white;">
                     <i class="fas fa-times"></i>
                 </button>
@@ -883,8 +883,8 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                     
                     <div style="display: flex; justify-content: center; margin-bottom: 30px;">
                         <div style="text-align: center;">
-                            <div style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(106, 27, 154, 0.3); margin: 0 auto 15px; max-width: 320px;">
-                                <img src="${qrCodeSrc}" alt="QR Yape - Luis Benjamin Baldeon Quispe" style="width: 280px; height: 380px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 0 auto; display: block;">
+                            <div style="background: #ffffff; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); margin: 0 auto 15px; max-width: 320px; border: 3px solid #6a1b9a;">
+                                <img src="${qrCodeSrc}" alt="QR Yape - Luis Benjamin Baldeon Quispe" style="width: 280px; height: 380px; border-radius: 10px; margin: 0 auto; display: block;">
                             </div>
                             <p style="font-weight: bold; color: #6a1b9a; font-size: 18px;">
                                 <i class="fas fa-mobile-alt"></i> Escanea con YAPE o PLIN
@@ -894,14 +894,14 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                     
                     <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
                         <p style="margin-bottom: 10px;"><strong>o agrega el siguiente Número:</strong></p>
-                        <p style="font-size: 24px; font-weight: bold; color: #d63384; margin-bottom: 10px;">965131163</p>
+                        <p style="font-size: 24px; font-weight: bold; color: #d63384; margin-bottom: 10px;">977713388</p>
                         <p style="margin-bottom: 5px;"><strong>Titular:</strong> Luis Benjamin Baldeon Quispe</p>
                     </div>
                     
                     <div style="background: #e7f3ff; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
                         <p style="margin-bottom: 10px; font-weight: bold; color: #0066cc;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
-                        <a href="https://wa.me/51965131163?text=${generateWhatsAppMessage(orderNumber, orderData, 'Pago con YAPE/PLIN')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
-                            <i class="fab fa-whatsapp"></i> 965 131 163 - Enviar datos del pedido
+                        <a href="https://wa.me/51977713388163?text=${generateWhatsAppMessage(orderNumber, orderData, 'Pago con YAPE/PLIN')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                            <i class="fab fa-whatsapp"></i> 977 713 388 - Enviar datos del pedido
                         </a>
                         <p style="font-weight: bold; color: #d63384; margin-top: 15px;">¡Haz clic para enviar automáticamente los datos de tu pedido!</p>
                     </div>
@@ -975,14 +975,14 @@ function generateTransferConfirmation(orderNumber, orderData) {
     return `
         <div class="modal large">
             <div class="modal-header" style="background: linear-gradient(135deg, #ffffff, #f8f9fa); color: #333; text-align: center; border-bottom: 2px solid #dee2e6;">
-                <h3 style="margin: 0; font-size: 24px;"><i class="fas fa-university"></i> Depósito en nuestra cuenta bancaria</h3>
+                <h3 style="margin: 0; font-size: 26px; font-weight: bold;"><i class="fas fa-university" style="margin-right: 10px; color: #6c757d;"></i>Depósito en nuestra <span style="color: #6c757d; font-weight: 900;">CUENTA BANCARIA</span></h3>
                 <button class="close-modal" onclick="clearCartAndCloseModal(this)" style="color: #333;">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-content" style="background: linear-gradient(to bottom, #f8f9fa, #ffffff);">
                 <div style="text-align: center; margin-bottom: 30px;">
-                    <h4 style="color: #495057; margin-bottom: 20px;">Realiza tu pago directamente en nuestra cuenta bancaria:</h4>
+                    <h4 style="color: #495057; margin-bottom: 20px; font-weight: bold; font-size: 20px;">Realiza tu pago directamente en nuestra cuenta bancaria:</h4>
                     
                     <div style="background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); margin: 0 auto 30px; max-width: 400px; border: 2px solid #dee2e6;">
                         <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #dee2e6;">
@@ -1175,11 +1175,52 @@ function clearCartAndCloseModal(button) {
     cart = [];
     updateCartDisplay();
     
+    // Clear all form data for a new purchase
+    clearAllFormData();
+    
     // Close the modal
     document.body.removeChild(button.closest('.modal-overlay'));
     
     // Reset body overflow
     document.body.style.overflow = '';
+}
+
+// Function to clear all form data
+function clearAllFormData() {
+    // Clear personal information
+    const personalFields = ['customer-name', 'customer-phone', 'customer-email'];
+    personalFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) field.value = '';
+    });
+    
+    // Clear delivery information
+    const deliveryFields = ['delivery-district', 'delivery-address', 'delivery-reference'];
+    deliveryFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) field.value = '';
+    });
+    
+    // Clear delivery date and time
+    const deliveryDate = document.getElementById('delivery-date');
+    const deliveryTime = document.getElementById('delivery-time');
+    if (deliveryDate) deliveryDate.value = '';
+    if (deliveryTime) deliveryTime.value = '';
+    
+    // Clear special instructions
+    const specialInstructions = document.getElementById('special-instructions');
+    if (specialInstructions) specialInstructions.value = '';
+    
+    // Reset delivery cost display
+    const deliveryCostSpan = document.getElementById('delivery-cost');
+    if (deliveryCostSpan) deliveryCostSpan.textContent = '0.00';
+    
+    // Reset total display
+    const totalSpan = document.getElementById('total-amount');
+    if (totalSpan) totalSpan.textContent = '0.00';
+    
+    // Show success notification
+    showNotification('¡Formulario limpiado! Listo para una nueva compra.', 'success');
 }
 
 // Enhanced notification system
