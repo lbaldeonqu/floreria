@@ -877,10 +877,10 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                     
                     <div style="background: #e7f3ff; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
                         <p style="margin-bottom: 10px; font-weight: bold; color: #0066cc;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
-                        <p style="font-size: 20px; font-weight: bold; color: #25d366; margin-bottom: 10px;">
-                            <i class="fab fa-whatsapp"></i> 965 131 163
-                        </p>
-                        <p style="font-weight: bold; color: #d63384;">¡Muchas Gracias!</p>
+                        <a href="https://wa.me/51965131163?text=${generateWhatsAppMessage(orderNumber, orderData, 'Pago con YAPE/PLIN')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                            <i class="fab fa-whatsapp"></i> 965 131 163 - Enviar datos del pedido
+                        </a>
+                        <p style="font-weight: bold; color: #d63384; margin-top: 15px;">¡Haz clic para enviar automáticamente los datos de tu pedido!</p>
                     </div>
                 </div>
                 
@@ -951,28 +951,28 @@ function generateTransferConfirmation(orderNumber, orderData) {
     
     return `
         <div class="modal large">
-            <div class="modal-header" style="background: linear-gradient(135deg, #007bb5, #0097d3); color: white; text-align: center;">
+            <div class="modal-header" style="background: linear-gradient(135deg, #ffffff, #f8f9fa); color: #333; text-align: center; border-bottom: 2px solid #dee2e6;">
                 <h3 style="margin: 0; font-size: 24px;"><i class="fas fa-university"></i> Depósito en nuestra cuenta bancaria</h3>
-                <button class="close-modal" onclick="clearCartAndCloseModal(this)" style="color: white;">
+                <button class="close-modal" onclick="clearCartAndCloseModal(this)" style="color: #333;">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-content" style="background: linear-gradient(to bottom, #f8f9fa, #ffffff);">
                 <div style="text-align: center; margin-bottom: 30px;">
-                    <h4 style="color: #007bb5; margin-bottom: 20px;">Realiza tu pago directamente en nuestra cuenta bancaria:</h4>
+                    <h4 style="color: #495057; margin-bottom: 20px;">Realiza tu pago directamente en nuestra cuenta bancaria:</h4>
                     
-                    <div style="background: linear-gradient(135deg, #007bb5, #0097d3); padding: 25px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 123, 181, 0.3); margin: 0 auto 30px; max-width: 400px;">
-                        <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
-                            <div style="color: #007bb5; font-size: 20px; font-weight: bold; margin-bottom: 15px;">
+                    <div style="background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); margin: 0 auto 30px; max-width: 400px; border: 2px solid #dee2e6;">
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #dee2e6;">
+                            <div style="color: #495057; font-size: 20px; font-weight: bold; margin-bottom: 15px;">
                                 <i class="fas fa-university"></i> BCP
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <p style="margin: 5px 0; font-weight: bold; color: #333;">Número de Cuenta:</p>
-                                <p style="font-size: 20px; font-weight: bold; color: #007bb5; margin: 5px 0;">19437343503009</p>
+                                <p style="font-size: 20px; font-weight: bold; color: #495057; margin: 5px 0;">19437343503009</p>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <p style="margin: 5px 0; font-weight: bold; color: #333;">CCI:</p>
-                                <p style="font-size: 18px; font-weight: bold; color: #007bb5; margin: 5px 0;">00219413734350300993</p>
+                                <p style="font-size: 18px; font-weight: bold; color: #495057; margin: 5px 0;">00219413734350300993</p>
                             </div>
                             <div>
                                 <p style="margin: 5px 0; font-weight: bold; color: #333;">Titular:</p>
@@ -981,12 +981,12 @@ function generateTransferConfirmation(orderNumber, orderData) {
                         </div>
                     </div>
                     
-                    <div style="background: #e7f3ff; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
-                        <p style="margin-bottom: 10px; font-weight: bold; color: #0066cc;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
-                        <p style="font-size: 20px; font-weight: bold; color: #25d366; margin-bottom: 10px;">
-                            <i class="fab fa-whatsapp"></i> 953 763 399
-                        </p>
-                        <p style="font-weight: bold; color: #007bb5;">¡Muchas Gracias!</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #dee2e6;">
+                        <p style="margin-bottom: 10px; font-weight: bold; color: #495057;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
+                        <a href="https://wa.me/51953763399?text=${generateWhatsAppMessage(orderNumber, orderData, 'Transferencia Bancaria BCP')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                            <i class="fab fa-whatsapp"></i> 953 763 399 - Enviar datos del pedido
+                        </a>
+                        <p style="font-weight: bold; color: #495057; margin-top: 15px;">¡Haz clic para enviar automáticamente los datos de tu pedido!</p>
                     </div>
                 </div>
                 
@@ -1015,7 +1015,7 @@ function generateTransferConfirmation(orderNumber, orderData) {
                             <span>Método de pago:</span>
                             <span>Transferencia Bancaria BCP</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #007bb5;">
+                        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #495057;">
                             <span>Total:</span>
                             <span>S/ ${total.toFixed(2)}</span>
                         </div>
@@ -1103,6 +1103,48 @@ function calculateSubtotal() {
 
 function calculateDeliveryCost(district) {
     return deliveryCosts[district] || 0;
+}
+
+function generateWhatsAppMessage(orderNumber, orderData, paymentMethod) {
+    const subtotal = calculateSubtotal();
+    const deliveryCost = calculateDeliveryCost(orderData.delivery.district);
+    const total = subtotal + deliveryCost;
+    
+    // Generar lista de productos
+    const productsList = cart.map(item => 
+        `• ${item.name} x${item.quantity} - S/ ${(parseFloat(item.price) * item.quantity).toFixed(2)}`
+    ).join('\n');
+    
+    const message = `🌹 *NUEVO PEDIDO - LIMA ROSE FLORERÍA* 🌹
+
+📋 *Número de Pedido:* ${orderNumber}
+📅 *Fecha:* ${new Date().toLocaleDateString('es-PE')}
+
+👤 *DATOS DEL CLIENTE:*
+• Nombre: ${orderData.customer.name}
+• Teléfono: ${orderData.customer.phone}
+• Email: ${orderData.customer.email}
+
+📦 *PRODUCTOS PEDIDOS:*
+${productsList}
+
+🚚 *ENTREGA:*
+• Dirección: ${orderData.delivery.address}
+• Distrito: ${getDistrictText(orderData.delivery.district)}
+• Referencia: ${orderData.delivery.reference || 'Sin referencia'}
+• Fecha entrega: ${orderData.delivery.date}
+
+💰 *RESUMEN DE PAGO:*
+• Subtotal: S/ ${subtotal.toFixed(2)}
+• Envío: S/ ${deliveryCost.toFixed(2)}
+• *Total: S/ ${total.toFixed(2)}*
+• Método: ${paymentMethod}
+
+✅ *El cliente debe enviar su comprobante de pago*
+
+¡Gracias por tu preferencia! 🌸`;
+
+    return encodeURIComponent(message);
 }
 
 function clearCartAndCloseModal(button) {
