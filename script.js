@@ -246,13 +246,31 @@ async function initializeProducts() {
 
 // Function to refresh products (called when returning from admin)
 async function refreshProducts() {
-    products = await loadAllProductsFromAPI();
-    loadProducts(currentFilter);
+    try {
+        console.log('Refreshing products from API...');
+        const newProducts = await loadAllProductsFromAPI();
+        products = newProducts;
+        loadProducts(currentFilter);
+        console.log('✅ Products refreshed successfully');
+        
+        // Show notification if new products were added
+        const totalProducts = Object.values(products).reduce((total, category) => {
+            return total + (Array.isArray(category) ? category.length : 0);
+        }, 0);
+        
+        if (totalProducts > 0) {
+            showNotification('Productos actualizados correctamente', 'success');
+        }
+    } catch (error) {
+        console.error('Error refreshing products:', error);
+        showNotification('Error al actualizar productos', 'error');
+    }
 }
 
 // Listen for storage changes (when admin adds products)
 window.addEventListener('storage', function(e) {
     if (e.key && e.key.startsWith('products_')) {
+        console.log('Storage change detected, refreshing products...');
         refreshProducts();
     }
 });
@@ -260,9 +278,38 @@ window.addEventListener('storage', function(e) {
 // Refresh products when page becomes visible (returning from admin)
 document.addEventListener('visibilitychange', function() {
     if (!document.hidden) {
+        console.log('Page became visible, refreshing products...');
         refreshProducts();
     }
 });
+
+// Periodic refresh every 30 seconds to catch new products
+setInterval(async function() {
+    try {
+        const newProducts = await loadAllProductsFromAPI();
+        const currentCount = Object.values(products).reduce((total, category) => {
+            return total + (Array.isArray(category) ? category.length : 0);
+        }, 0);
+        
+        const newCount = Object.values(newProducts).reduce((total, category) => {
+            return total + (Array.isArray(category) ? category.length : 0);
+        }, 0);
+        
+        if (newCount !== currentCount) {
+            console.log('New products detected, updating...');
+            products = newProducts;
+            loadProducts(currentFilter);
+        }
+    } catch (error) {
+        console.log('Periodic refresh error:', error);
+    }
+}, 30000); // Check every 30 seconds
+
+// Force refresh button (for debugging - can be removed in production)
+window.forceRefreshProducts = function() {
+    console.log('Force refreshing products...');
+    refreshProducts();
+};
 
 // Shopping cart
 let cart = [];
@@ -385,10 +432,45 @@ function createProductCard(product) {
 
 // Add product to cart
 function addToCart(productId, filter) {
-    const product = products[filter].find(p => p.id === productId);
-    if (!product) return;
+    // First try to find in the specified filter
+    let product = products[filter] ? products[filter].find(p => p.id === productId) : null;
     
-    const existingItem = cart.find(item => item.id === productId);
+    // If not found, search in all categories
+    if (!product) {
+        for (const category in products) {
+            if (Array.isArray(products[category])) {
+                product = products[category].find(p => p.id === productId);
+                if (product) break;
+            }
+        }
+    }
+    
+    // If still not found, try to refresh products and search again
+    if (!product) {
+        console.log('Product not found, refreshing products...');
+        refreshProducts();
+        // After refresh, try one more time
+        setTimeout(() => {
+            for (const category in products) {
+                if (Array.isArray(products[category])) {
+                    product = products[category].find(p => p.id === productId);
+                    if (product) {
+                        addProductToCart(product);
+                        return;
+                    }
+                }
+            }
+            console.error('Product not found even after refresh:', productId);
+        }, 500);
+        return;
+    }
+    
+    addProductToCart(product);
+}
+
+// Helper function to add product to cart
+function addProductToCart(product) {
+    const existingItem = cart.find(item => item.id === product.id);
     
     if (existingItem) {
         existingItem.quantity += 1;

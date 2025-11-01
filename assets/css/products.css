@@ -75,6 +75,39 @@
     color: var(--primary-color);
 }
 
+.refresh-products-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-primary);
+    border: 2px solid var(--bg-light);
+    border-radius: 25px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-normal);
+    margin-left: var(--spacing-md);
+}
+
+.refresh-products-btn:hover {
+    border-color: #28a745;
+    color: #28a745;
+    background: rgba(40, 167, 69, 0.1);
+}
+
+.refresh-products-btn:active {
+    transform: scale(0.98);
+}
+
+.refresh-products-btn i {
+    transition: transform var(--transition-normal);
+}
+
+.refresh-products-btn:hover i {
+    transform: rotate(180deg);
+}
+
 .filters-dropdown {
     position: absolute;
     top: 100%;
