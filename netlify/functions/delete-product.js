@@ -2,10 +2,11 @@
 const sharedStorage = require('./shared-storage');
 
 exports.handler = async (event, context) => {
-  console.log('🗑️ Delete product function called');
+  console.log('🗑️ Delete product function called - v2.0');
   console.log('📝 Method:', event.httpMethod);
   console.log('🔗 Full URL Path:', event.path);
   console.log('🔍 Query params:', event.queryStringParameters);
+  console.log('⏰ Timestamp:', new Date().toISOString());
   
   const headers = {
     'Access-Control-Allow-Origin': '*',
