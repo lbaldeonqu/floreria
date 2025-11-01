@@ -131,16 +131,81 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // PUT method redirected to specific function
     if (event.httpMethod === 'PUT') {
+      console.log('✏️ PUT request in products.js');
+      
+      // Get product ID from query parameters or path
+      let productId = null;
+      
+      if (event.queryStringParameters && event.queryStringParameters.id) {
+        productId = parseInt(event.queryStringParameters.id);
+      } else if (event.path) {
+        const pathParts = event.path.split('/');
+        const lastPart = pathParts[pathParts.length - 1];
+        if (!isNaN(lastPart)) {
+          productId = parseInt(lastPart);
+        }
+      }
+
+      console.log('🆔 Product ID to update:', productId);
+
+      if (!productId || isNaN(productId)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ 
+            message: 'Product ID is required (use ?id=123 or /products/123)',
+            queryParams: event.queryStringParameters,
+            path: event.path
+          })
+        };
+      }
+
+      if (!event.body) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'Request body is required' })
+        };
+      }
+
+      let productData;
+      try {
+        productData = JSON.parse(event.body);
+        console.log('✅ Parsed update data:', productData);
+      } catch (parseError) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ 
+            message: 'Invalid JSON in request body',
+            parseError: parseError.message
+          })
+        };
+      }
+
+      // Update using shared storage
+      const updatedProduct = sharedStorage.updateProduct(productId, productData);
+
+      if (!updatedProduct) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ 
+            message: 'Product not found',
+            searchedId: productId
+          })
+        };
+      }
+
+      console.log('✅ Product updated successfully via products.js');
+      
       return {
-        statusCode: 301,
-        headers: {
-          ...headers,
-          'Location': `/api/update-product`
-        },
-        body: JSON.stringify({ 
-          message: `Please use /api/update-product endpoint for update operations`
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          message: 'Product updated successfully',
+          product: updatedProduct
         })
       };
     }

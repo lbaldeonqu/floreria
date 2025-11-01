@@ -820,7 +820,7 @@
                     // Update existing product
                     console.log('🔄 Updating product with ID:', editingProductId);
                     console.log('📦 Product data being sent:', productData);
-                    const updateUrl = `/api/update-product?id=${editingProductId}`;
+                    const updateUrl = `/api/products?id=${editingProductId}`;
                     console.log('🔗 Update URL:', updateUrl);
                     
                     response = await fetch(updateUrl, {
@@ -878,22 +878,12 @@
         async function deleteProduct(productId) {
             if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
                 try {
-                    console.log('🗑️ Intentando eliminar producto ID:', productId);
+                    console.log('🗑️ Eliminando producto ID:', productId);
                     
-                    // Intentar primero con la función dedicada
-                    let response = await fetch(`/api/delete-product?id=${productId}`, {
+                    const response = await fetch(`/api/products?id=${productId}`, {
                         method: 'DELETE',
                         credentials: 'include'
                     });
-                    
-                    // Si da 404, intentar con products.js como fallback
-                    if (response.status === 404) {
-                        console.log('⚠️ Función delete-product no disponible, usando fallback products.js');
-                        response = await fetch(`/api/products?id=${productId}`, {
-                            method: 'DELETE',
-                            credentials: 'include'
-                        });
-                    }
                     
                     console.log('📡 Delete response status:', response.status);
                     const data = await response.json();
