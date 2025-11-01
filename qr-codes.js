@@ -19,4 +19,8 @@ function getQRCode(type = 'yapePlin') {
 // Exportar para uso en otros archivos
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { QR_CODES, getQRCode };
-}
+}/ /   F u n c i ó n   p a r a   o b t e n e r   e l   Q R   c o d e  
+ f u n c t i o n   g e t Q R C o d e ( t y p e   =   ' y a p e P l i n ' )   {  
+         r e t u r n   Q R _ C O D E S [ t y p e ]   | |   Q R _ C O D E S . y a p e P l i n ;  
+ }  
+ 

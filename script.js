@@ -844,6 +844,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
     const subtotal = calculateSubtotal();
     const deliveryCost = calculateDeliveryCost(orderData.delivery.district);
     const total = subtotal + deliveryCost;
+    const qrCodeBase64 = getQRCode('yapePlin');
     
     return `
         <div class="modal large">
@@ -860,7 +861,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                     <div style="display: flex; justify-content: center; margin-bottom: 30px;">
                         <div style="text-align: center;">
                             <div style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(106, 27, 154, 0.3); margin: 0 auto 15px; max-width: 320px;">
-                                <img src="data:image/png;base64,${getQRCode('yapePlin')}" alt="QR Yape - Luis Benjamin Baldeon Quispe" style="width: 280px; height: 380px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 0 auto; display: block;">
+                                <img src="data:image/png;base64,${qrCodeBase64}" alt="QR Yape - Luis Benjamin Baldeon Quispe" style="width: 280px; height: 380px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 0 auto; display: block;">
                             </div>
                             <p style="font-weight: bold; color: #6a1b9a; font-size: 18px;">
                                 <i class="fas fa-mobile-alt"></i> Escanea con YAPE o PLIN
