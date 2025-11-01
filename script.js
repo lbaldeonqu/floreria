@@ -1004,7 +1004,7 @@ function generateTransferConfirmation(orderNumber, orderData) {
                     <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #dee2e6;">
                         <p style="margin-bottom: 10px; font-weight: bold; color: #495057;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
                         <a href="https://wa.me/51977713388?text=${generateWhatsAppMessage(orderNumber, orderData, 'Transferencia Bancaria BCP')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
-                            <i class="fab fa-whatsapp"></i> 953 763 399 - Enviar datos del pedido
+                            <i class="fab fa-whatsapp"></i> 977 713 388 - Enviar datos del pedido
                         </a>
                         <p style="font-weight: bold; color: #495057; margin-top: 15px;">¡Haz clic para enviar automáticamente los datos de tu pedido!</p>
                     </div>
@@ -1135,34 +1135,35 @@ function generateWhatsAppMessage(orderNumber, orderData, paymentMethod) {
         `• ${item.name} x${item.quantity} - S/ ${(parseFloat(item.price) * item.quantity).toFixed(2)}`
     ).join('\n');
     
-    const message = `🌹 *NUEVO PEDIDO - LIMA ROSE FLORERÍA* 🌹
+    const message = `*NUEVO PEDIDO - LIMA ROSE FLORERIA*
 
-📋 *Número de Pedido:* ${orderNumber}
-📅 *Fecha:* ${new Date().toLocaleDateString('es-PE')}
+*Numero de Pedido:* ${orderNumber}
+*Fecha:* ${new Date().toLocaleDateString('es-PE')}
 
-👤 *DATOS DEL CLIENTE:*
+*DATOS DEL CLIENTE:*
 • Nombre: ${orderData.customer.name}
-• Teléfono: ${orderData.customer.phone}
+• Telefono: ${orderData.customer.phone}
 • Email: ${orderData.customer.email}
 
-📦 *PRODUCTOS PEDIDOS:*
+*PRODUCTOS PEDIDOS:*
 ${productsList}
 
-🚚 *ENTREGA:*
-• Dirección: ${orderData.delivery.address}
+*ENTREGA:*
+• Direccion: ${orderData.delivery.address}
 • Distrito: ${getDistrictText(orderData.delivery.district)}
 • Referencia: ${orderData.delivery.reference || 'Sin referencia'}
 • Fecha entrega: ${orderData.delivery.date}
+• Horario: ${getTimeSlotText(orderData.delivery.time)}
 
-💰 *RESUMEN DE PAGO:*
+*RESUMEN DE PAGO:*
 • Subtotal: S/ ${subtotal.toFixed(2)}
-• Envío: S/ ${deliveryCost.toFixed(2)}
+• Envio: S/ ${deliveryCost.toFixed(2)}
 • *Total: S/ ${total.toFixed(2)}*
-• Método: ${paymentMethod}
+• Metodo: ${paymentMethod}
 
-✅ *El cliente debe enviar su comprobante de pago*
+*El cliente debe enviar su comprobante de pago*
 
-¡Gracias por tu preferencia! 🌸`;
+Gracias por tu preferencia!`;
 
     return encodeURIComponent(message);
 }
