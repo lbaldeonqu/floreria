@@ -871,19 +871,16 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
     
     return `
         <div class="modal large">
-            <div class="modal-header" style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); color: white; text-align: center;">
-                <h3 style="margin: 0; font-size: 26px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="fas fa-mobile-alt" style="margin-right: 10px;"></i>Paga con <span style="color: #ffd700; font-weight: 900;">YAPE</span> o <span style="color: #ffd700; font-weight: 900;">PLIN</span> <span style="color: #90EE90; font-weight: 800;">100% SEGURO</span></h3>
-                <button class="close-modal" onclick="clearCartAndCloseModal(this)" style="color: white;">
+            <div class="modal-content" style="background: linear-gradient(to bottom, #f8f9fa, #ffffff); position: relative;">
+                <button class="close-modal" onclick="clearCartAndCloseModal(this)" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; color: #666; cursor: pointer; z-index: 1000;">
                     <i class="fas fa-times"></i>
                 </button>
-            </div>
-            <div class="modal-content" style="background: linear-gradient(to bottom, #f8f9fa, #ffffff);">
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <h4 style="color: #d63384; margin-bottom: 20px;">Escanea el siguiente QR:</h4>
+                <div style="text-align: center; margin-bottom: 30px; padding-top: 20px;">
+                    <h4 style="color: #6a1b9a; margin-bottom: 20px; font-size: 24px; font-weight: bold;">Escanea el siguiente QR:</h4>
                     
                     <div style="display: flex; justify-content: center; margin-bottom: 30px;">
                         <div style="text-align: center;">
-                            <div style="background: #ffffff; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); margin: 0 auto 15px; max-width: 320px; border: 3px solid #6a1b9a;">
+                            <div style="background: #ffffff; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); margin: 0 auto 15px; max-width: 320px;">
                                 <img src="${qrCodeSrc}" alt="QR Yape - Luis Benjamin Baldeon Quispe" style="width: 280px; height: 380px; border-radius: 10px; margin: 0 auto; display: block;">
                             </div>
                             <p style="font-weight: bold; color: #6a1b9a; font-size: 18px;">
@@ -900,7 +897,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                     
                     <div style="background: #e7f3ff; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
                         <p style="margin-bottom: 10px; font-weight: bold; color: #0066cc;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
-                        <a href="https://wa.me/51977713388163?text=${generateWhatsAppMessage(orderNumber, orderData, 'Pago con YAPE/PLIN')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                        <a href="https://wa.me/51977713388?text=${generateWhatsAppMessage(orderNumber, orderData, 'Pago con YAPE/PLIN')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
                             <i class="fab fa-whatsapp"></i> 977 713 388 - Enviar datos del pedido
                         </a>
                         <p style="font-weight: bold; color: #d63384; margin-top: 15px;">¡Haz clic para enviar automáticamente los datos de tu pedido!</p>
@@ -930,7 +927,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                             <span>Método de pago:</span>
-                            <span>Paga con YAPE O PLIN 100% seguro</span>
+                            <span>YAPE o PLIN</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #d63384;">
                             <span>Total:</span>
@@ -1006,7 +1003,7 @@ function generateTransferConfirmation(orderNumber, orderData) {
                     
                     <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #dee2e6;">
                         <p style="margin-bottom: 10px; font-weight: bold; color: #495057;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
-                        <a href="https://wa.me/51953763399?text=${generateWhatsAppMessage(orderNumber, orderData, 'Transferencia Bancaria BCP')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                        <a href="https://wa.me/51977713388?text=${generateWhatsAppMessage(orderNumber, orderData, 'Transferencia Bancaria BCP')}" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 18px; margin: 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
                             <i class="fab fa-whatsapp"></i> 953 763 399 - Enviar datos del pedido
                         </a>
                         <p style="font-weight: bold; color: #495057; margin-top: 15px;">¡Haz clic para enviar automáticamente los datos de tu pedido!</p>
