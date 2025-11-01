@@ -70,12 +70,7 @@
                             <input type="text" placeholder="Buscar productos...">
                             <i class="fas fa-search"></i>
                         </div>
-                        <div class="user-menu">
-                            <button class="login-btn" onclick="openLoginModal()">
-                                <i class="fas fa-user"></i>
-                                Mi Cuenta
-                            </button>
-                        </div>
+
                         <div class="cart-btn" onclick="toggleCart()">
                             <i class="fas fa-shopping-bag"></i>
                             <span class="cart-count">0</span>
@@ -590,64 +585,6 @@
     <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
 
     <!-- Login/Register Modal -->
-    <div class="modal-overlay" id="login-modal-overlay" onclick="closeLoginModal()">
-        <div class="modal" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h3 id="modal-title">Iniciar Sesión</h3>
-                <button class="close-modal" onclick="closeLoginModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-content">
-                <!-- Login Form -->
-                <form id="login-form" class="auth-form active">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" placeholder="tu@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Contraseña</label>
-                        <input type="password" placeholder="••••••••" required>
-                    </div>
-                    <button type="submit" class="btn-primary full-width">Iniciar Sesión</button>
-                    <p class="form-switch">
-                        ¿No tienes cuenta? 
-                        <a href="#" onclick="switchToRegister()">Regístrate aquí</a>
-                    </p>
-                </form>
-                
-                <!-- Register Form -->
-                <form id="register-form" class="auth-form">
-                    <div class="form-group">
-                        <label>Nombre Completo</label>
-                        <input type="text" placeholder="Tu nombre completo" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" placeholder="tu@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Teléfono</label>
-                        <input type="tel" placeholder="+51 999 999 999" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Contraseña</label>
-                        <input type="password" placeholder="••••••••" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirmar Contraseña</label>
-                        <input type="password" placeholder="••••••••" required>
-                    </div>
-                    <button type="submit" class="btn-primary full-width">Crear Cuenta</button>
-                    <p class="form-switch">
-                        ¿Ya tienes cuenta? 
-                        <a href="#" onclick="switchToLogin()">Inicia sesión</a>
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Checkout Modal -->
     <div class="modal-overlay" id="checkout-modal-overlay" onclick="closeCheckoutModal()">
         <div class="modal large" onclick="event.stopPropagation()">
@@ -666,16 +603,16 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label>Nombre Completo</label>
-                                        <input type="text" required>
+                                        <input type="text" name="name" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Teléfono</label>
-                                        <input type="tel" required>
+                                        <input type="tel" name="phone" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" required>
+                                    <input type="email" name="email" required>
                                 </div>
                             </div>
 
@@ -683,7 +620,7 @@
                                 <h4><i class="fas fa-map-marker-alt"></i> Dirección de Entrega</h4>
                                 <div class="form-group">
                                     <label>Distrito</label>
-                                    <select required>
+                                    <select name="district" required>
                                         <option value="">Seleccionar distrito</option>
                                         <option value="miraflores">Miraflores - S/ 15.00</option>
                                         <option value="san-isidro">San Isidro - S/ 15.00</option>
@@ -696,11 +633,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Dirección Completa</label>
-                                    <textarea placeholder="Av. Principal 123, Dpto. 402" required></textarea>
+                                    <textarea name="address" placeholder="Av. Principal 123, Dpto. 402" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Referencia</label>
-                                    <input type="text" placeholder="Edificio azul, frente al parque">
+                                    <input type="text" name="reference" placeholder="Edificio azul, frente al parque">
                                 </div>
                             </div>
 
@@ -709,11 +646,11 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label>Fecha</label>
-                                        <input type="date" required>
+                                        <input type="date" name="date" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Hora</label>
-                                        <select required>
+                                        <select name="time" required>
                                             <option value="">Seleccionar hora</option>
                                             <option value="morning">9:00 AM - 12:00 PM</option>
                                             <option value="afternoon">2:00 PM - 6:00 PM</option>

@@ -1188,29 +1188,7 @@ body {
 }
 
 /* Login Button */
-.user-menu {
-    margin-right: 10px;
-}
 
-.login-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    background-color: transparent;
-    border: 2px solid #d63384;
-    color: #d63384;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.login-btn:hover {
-    background-color: #d63384;
-    color: white;
-}
 
 /* Features Section */
 .features {
@@ -1595,13 +1573,7 @@ body {
 }
 
 /* Auth Forms */
-.auth-form {
-    display: none;
-}
 
-.auth-form.active {
-    display: block;
-}
 
 .form-group {
     margin-bottom: 20px;

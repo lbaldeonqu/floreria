@@ -1,5 +1,4 @@
-// User authentication state
-let currentUser = null;
+
 
 // Delivery costs by district
 const deliveryCosts = {
@@ -674,102 +673,7 @@ document.querySelector('.checkout-btn').addEventListener('click', function() {
     alert(`Redirigiendo al proceso de pago...\nTotal: S/ ${total.toFixed(2)}`);
 });
 
-// Login/Register Modal Functions
-function openLoginModal() {
-    const modal = document.getElementById('login-modal-overlay');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
 
-function closeLoginModal() {
-    const modal = document.getElementById('login-modal-overlay');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function switchToRegister() {
-    document.getElementById('login-form').classList.remove('active');
-    document.getElementById('register-form').classList.add('active');
-    document.getElementById('modal-title').textContent = 'Crear Cuenta';
-}
-
-function switchToLogin() {
-    document.getElementById('register-form').classList.remove('active');
-    document.getElementById('login-form').classList.add('active');
-    document.getElementById('modal-title').textContent = 'Iniciar Sesión';
-}
-
-// Handle login form submission
-document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = this.querySelector('input[type="email"]').value;
-    const password = this.querySelector('input[type="password"]').value;
-    
-    // Simulate login (in real app, this would connect to backend)
-    if (email && password) {
-        currentUser = {
-            email: email,
-            name: email.split('@')[0]
-        };
-        
-        // Update UI
-        updateUserInterface();
-        closeLoginModal();
-        showNotification('¡Bienvenido! Has iniciado sesión correctamente.', 'success');
-    }
-});
-
-// Handle register form submission
-document.getElementById('register-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const name = this.querySelector('input[type="text"]').value;
-    const email = this.querySelector('input[type="email"]').value;
-    const phone = this.querySelector('input[type="tel"]').value;
-    const password = this.querySelectorAll('input[type="password"]')[0].value;
-    const confirmPassword = this.querySelectorAll('input[type="password"]')[1].value;
-    
-    if (password !== confirmPassword) {
-        showNotification('Las contraseñas no coinciden', 'error');
-        return;
-    }
-    
-    if (name && email && phone && password) {
-        currentUser = {
-            name: name,
-            email: email,
-            phone: phone
-        };
-        
-        updateUserInterface();
-        closeLoginModal();
-        showNotification('¡Cuenta creada exitosamente! Bienvenido a Lima Rose Florería.', 'success');
-    }
-});
-
-function updateUserInterface() {
-    const loginBtn = document.querySelector('.login-btn');
-    if (currentUser) {
-        loginBtn.innerHTML = `
-            <i class="fas fa-user-circle"></i>
-            Hola, ${currentUser.name}
-        `;
-        loginBtn.onclick = () => {
-            // Could show user menu dropdown
-            if (confirm('¿Deseas cerrar sesión?')) {
-                currentUser = null;
-                updateUserInterface();
-                showNotification('Sesión cerrada correctamente', 'success');
-            }
-        };
-    } else {
-        loginBtn.innerHTML = `
-            <i class="fas fa-user"></i>
-            Mi Cuenta
-        `;
-        loginBtn.onclick = openLoginModal;
-    }
-}
 
 // Enhanced checkout system
 function openCheckoutModal() {
@@ -840,17 +744,14 @@ function populateCheckoutItems() {
 document.getElementById('checkout-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    if (!currentUser) {
-        showNotification('Por favor inicia sesión para continuar', 'error');
-        closeCheckoutModal();
-        openLoginModal();
-        return;
-    }
-    
     // Collect form data
     const formData = new FormData(this);
     const orderData = {
-        customer: currentUser,
+        customer: {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone')
+        },
         items: cart,
         delivery: {
             district: formData.get('district'),
