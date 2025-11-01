@@ -846,14 +846,27 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
     const total = subtotal + deliveryCost;
     
     // Verificar si getQRCode está disponible, sino usar fallback
-    let qrCodeBase64;
+    let qrCodeSrc;
     if (typeof getQRCode === 'function') {
-        qrCodeBase64 = getQRCode('yapePlin');
+        const qrCode = getQRCode('yapePlin');
+        // Verificar si es una URL de imagen o código Base64
+        if (qrCode && qrCode.endsWith('.png')) {
+            qrCodeSrc = qrCode;
+        } else if (qrCode) {
+            qrCodeSrc = `data:image/png;base64,${qrCode}`;
+        } else {
+            qrCodeSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+        }
     } else if (typeof QR_CODES !== 'undefined' && QR_CODES.yapePlin) {
-        qrCodeBase64 = QR_CODES.yapePlin;
+        const qrCode = QR_CODES.yapePlin;
+        if (qrCode.endsWith('.png')) {
+            qrCodeSrc = qrCode;
+        } else {
+            qrCodeSrc = `data:image/png;base64,${qrCode}`;
+        }
     } else {
         console.error('QR codes no disponibles');
-        qrCodeBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='; // 1x1 pixel transparente como fallback
+        qrCodeSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='; // 1x1 pixel transparente como fallback
     }
     
     return `
@@ -871,7 +884,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                     <div style="display: flex; justify-content: center; margin-bottom: 30px;">
                         <div style="text-align: center;">
                             <div style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(106, 27, 154, 0.3); margin: 0 auto 15px; max-width: 320px;">
-                                <img src="data:image/png;base64,${qrCodeBase64}" alt="QR Yape - Luis Benjamin Baldeon Quispe" style="width: 280px; height: 380px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 0 auto; display: block;">
+                                <img src="${qrCodeSrc}" alt="QR Yape - Luis Benjamin Baldeon Quispe" style="width: 280px; height: 380px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 0 auto; display: block;">
                             </div>
                             <p style="font-weight: bold; color: #6a1b9a; font-size: 18px;">
                                 <i class="fas fa-mobile-alt"></i> Escanea con YAPE o PLIN
