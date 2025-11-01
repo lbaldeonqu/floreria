@@ -353,7 +353,8 @@ function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    const discountText = product.discount > 0 ? `Descuento: S/ ${product.discount.toFixed(2)}` : '';
+    const discountValue = parseFloat(product.discount) || 0;
+    const discountText = discountValue > 0 ? `Descuento: S/ ${discountValue.toFixed(2)}` : '';
     
     card.innerHTML = `
         <div class="product-image" onclick="openProductDetail(${product.id}, '${currentFilter}')">
@@ -1434,8 +1435,9 @@ function populateProductDetail(product) {
     }
     
     const discountBadge = document.getElementById('product-discount-badge');
-    if (product.discount > 0) {
-        discountBadge.textContent = `Ahorra S/ ${product.discount.toFixed(2)}`;
+    const discountValue = parseFloat(product.discount) || 0;
+    if (discountValue > 0) {
+        discountBadge.textContent = `Ahorra S/ ${discountValue.toFixed(2)}`;
         discountBadge.style.display = 'inline-block';
     } else {
         discountBadge.style.display = 'none';
