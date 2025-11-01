@@ -802,7 +802,136 @@ function generateOrderNumber() {
 function showOrderConfirmation(orderNumber, orderData) {
     const modal = document.createElement('div');
     modal.className = 'modal-overlay active';
-    modal.innerHTML = `
+    
+    // Verificar si el pago es con Yape o Plin
+    if (orderData.payment === 'yape' || orderData.payment === 'plin') {
+        modal.innerHTML = generateYapePlinConfirmation(orderNumber, orderData);
+    } else {
+        modal.innerHTML = generateStandardConfirmation(orderNumber, orderData);
+    }
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+function generateYapePlinConfirmation(orderNumber, orderData) {
+    const subtotal = calculateSubtotal();
+    const deliveryCost = calculateDeliveryCost(orderData.delivery.district);
+    const total = subtotal + deliveryCost;
+    
+    return `
+        <div class="modal large">
+            <div class="modal-header" style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); color: white; text-align: center;">
+                <h3 style="margin: 0; font-size: 24px;"><i class="fas fa-mobile-alt"></i> Paga con YAPE o PLIN 100% seguro</h3>
+                <button class="close-modal" onclick="document.body.removeChild(this.closest('.modal-overlay'))" style="color: white;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content" style="background: linear-gradient(to bottom, #f8f9fa, #ffffff);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h4 style="color: #d63384; margin-bottom: 20px;">Escanea el siguiente QR:</h4>
+                    
+                    <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                        <div style="text-align: center;">
+                            <div style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(106, 27, 154, 0.3); margin: 0 auto 15px; max-width: 320px;">
+                                <div style="width: 280px; height: 380px; border-radius: 15px; background: white; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto;">
+                                    <div style="color: #6a1b9a; font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+                                        <i class="fas fa-mobile-alt"></i> yape
+                                    </div>
+                                    <div style="width: 180px; height: 180px; background: #6a1b9a; margin: 20px 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; text-align: center;">
+                                        QR CODE<br>YAPE<br><br>Luis Benjamin<br>Baldeon Quispe<br><br>965131163
+                                    </div>
+                                    <div style="background: #00d4aa; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 14px;">
+                                        Paga aquí con Yape
+                                    </div>
+                                    <div style="color: #6a1b9a; font-weight: bold; margin-top: 15px; text-align: center;">
+                                        Luis Benjamin Baldeon Quispe
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="font-weight: bold; color: #6a1b9a; font-size: 18px;">
+                                <i class="fas fa-mobile-alt"></i> Escanea con YAPE o PLIN
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+                        <p style="margin-bottom: 10px;"><strong>o agrega el siguiente Número:</strong></p>
+                        <p style="font-size: 24px; font-weight: bold; color: #d63384; margin-bottom: 10px;">965131163</p>
+                        <p style="margin-bottom: 5px;"><strong>Titular:</strong> Luis Benjamin Baldeon Quispe</p>
+                    </div>
+                    
+                    <div style="background: #e7f3ff; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                        <p style="margin-bottom: 10px; font-weight: bold; color: #0066cc;">Una vez realizado el abono enviar la constancia a nuestro WhatsApp:</p>
+                        <p style="font-size: 20px; font-weight: bold; color: #25d366; margin-bottom: 10px;">
+                            <i class="fab fa-whatsapp"></i> 965 131 163
+                        </p>
+                        <p style="font-weight: bold; color: #d63384;">¡Muchas Gracias!</p>
+                    </div>
+                </div>
+                
+                <div style="background: #fff; border: 2px solid #dee2e6; border-radius: 10px; padding: 20px;">
+                    <h4 style="margin-bottom: 15px; color: #333;"><i class="fas fa-receipt"></i> Detalles del pedido</h4>
+                    
+                    <div style="border-bottom: 1px solid #dee2e6; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; font-weight: bold; padding-bottom: 10px;">
+                            <span>Producto</span>
+                            <span>Total</span>
+                        </div>
+                    </div>
+                    
+                    ${generateOrderItemsList()}
+                    
+                    <div style="border-top: 2px solid #dee2e6; padding-top: 15px; margin-top: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Subtotal:</span>
+                            <span>S/ ${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Envío:</span>
+                            <span>S/ ${deliveryCost.toFixed(2)} vía ${getDistrictText(orderData.delivery.district)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Método de pago:</span>
+                            <span>Paga con YAPE O PLIN 100% seguro</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #d63384;">
+                            <span>Total:</span>
+                            <span>S/ ${total.toFixed(2)}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #dee2e6;">
+                        <h5 style="margin-bottom: 10px; color: #333;">Dirección de entrega</h5>
+                        <p style="margin: 5px 0;"><strong>${orderData.customer.name}</strong></p>
+                        <p style="margin: 5px 0;">${orderData.delivery.address}</p>
+                        <p style="margin: 5px 0;">${orderData.delivery.reference || ''}</p>
+                        <p style="margin: 5px 0;">${getDistrictText(orderData.delivery.district)}</p>
+                        <p style="margin: 5px 0;">${orderData.customer.phone}</p>
+                        <p style="margin: 5px 0;">${orderData.customer.email}</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px; padding: 20px; background: #d4edda; border-radius: 10px;">
+                        <h4 style="color: #155724; margin-bottom: 10px;">Gracias. Tu pedido ha sido recibido.</h4>
+                        <p style="margin: 5px 0;"><strong>Número de pedido:</strong> ${orderNumber}</p>
+                        <p style="margin: 5px 0;"><strong>Fecha:</strong> ${new Date().toLocaleDateString('es-PE')}</p>
+                        <p style="margin: 5px 0;"><strong>Total:</strong> S/ ${total.toFixed(2)}</p>
+                        <p style="margin: 5px 0;"><strong>Método de pago:</strong> Paga con YAPE O PLIN</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn-primary" onclick="document.body.removeChild(this.closest('.modal-overlay'))">
+                        Continuar Comprando
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generateStandardConfirmation(orderNumber, orderData) {
+    return `
         <div class="modal">
             <div class="modal-content" style="text-align: center; padding: 40px;">
                 <i class="fas fa-check-circle" style="font-size: 64px; color: #28a745; margin-bottom: 20px;"></i>
@@ -822,9 +951,15 @@ function showOrderConfirmation(orderNumber, orderData) {
             </div>
         </div>
     `;
-    
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
+}
+
+function generateOrderItemsList() {
+    return cart.map(item => `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0;">
+            <span>${item.name} × ${item.quantity}</span>
+            <span>S/ ${(parseFloat(item.price) * item.quantity).toFixed(2)}</span>
+        </div>
+    `).join('');
 }
 
 function getTimeSlotText(timeSlot) {
@@ -838,6 +973,16 @@ function getTimeSlotText(timeSlot) {
 
 function getDistrictText(district) {
     return district ? district.charAt(0).toUpperCase() + district.slice(1).replace('-', ' ') : '';
+}
+
+function calculateSubtotal() {
+    return cart.reduce((total, item) => {
+        return total + (parseFloat(item.price) * item.quantity);
+    }, 0);
+}
+
+function calculateDeliveryCost(district) {
+    return deliveryCosts[district] || 0;
 }
 
 // Enhanced notification system
