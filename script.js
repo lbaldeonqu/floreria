@@ -844,7 +844,17 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
     const subtotal = calculateSubtotal();
     const deliveryCost = calculateDeliveryCost(orderData.delivery.district);
     const total = subtotal + deliveryCost;
-    const qrCodeBase64 = getQRCode('yapePlin');
+    
+    // Verificar si getQRCode está disponible, sino usar fallback
+    let qrCodeBase64;
+    if (typeof getQRCode === 'function') {
+        qrCodeBase64 = getQRCode('yapePlin');
+    } else if (typeof QR_CODES !== 'undefined' && QR_CODES.yapePlin) {
+        qrCodeBase64 = QR_CODES.yapePlin;
+    } else {
+        console.error('QR codes no disponibles');
+        qrCodeBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='; // 1x1 pixel transparente como fallback
+    }
     
     return `
         <div class="modal large">
