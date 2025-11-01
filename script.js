@@ -776,10 +776,12 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
 
 function processOrder(orderData) {
     // Show loading state
-    const submitBtn = document.querySelector('#checkout-form button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Procesando...';
-    submitBtn.disabled = true;
+    const submitBtn = document.querySelector('button[form="checkout-form"]');
+    const originalText = submitBtn ? submitBtn.textContent : 'Confirmar Pedido';
+    if (submitBtn) {
+        submitBtn.textContent = 'Procesando...';
+        submitBtn.disabled = true;
+    }
     
     // Simulate API call
     setTimeout(() => {
@@ -796,8 +798,10 @@ function processOrder(orderData) {
         showOrderConfirmation(orderNumber, orderData);
         
         // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+        if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     }, 2000);
 }
 
