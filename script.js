@@ -787,10 +787,6 @@ function processOrder(orderData) {
     setTimeout(() => {
         const orderNumber = generateOrderNumber();
         
-        // Clear cart
-        cart = [];
-        updateCartDisplay();
-        
         // Close checkout modal
         closeCheckoutModal();
         
@@ -833,7 +829,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
         <div class="modal large">
             <div class="modal-header" style="background: linear-gradient(135deg, #6a1b9a, #8e44ad); color: white; text-align: center;">
                 <h3 style="margin: 0; font-size: 24px;"><i class="fas fa-mobile-alt"></i> Paga con YAPE o PLIN 100% seguro</h3>
-                <button class="close-modal" onclick="document.body.removeChild(this.closest('.modal-overlay'))" style="color: white;">
+                <button class="close-modal" onclick="clearCartAndCloseModal(this)" style="color: white;">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -931,7 +927,7 @@ function generateYapePlinConfirmation(orderNumber, orderData) {
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn-primary" onclick="document.body.removeChild(this.closest('.modal-overlay'))">
+                    <button class="btn-primary" onclick="clearCartAndCloseModal(this)">
                         Continuar Comprando
                     </button>
                 </div>
@@ -955,7 +951,7 @@ function generateStandardConfirmation(orderNumber, orderData) {
                 <p style="color: #6c757d; margin-bottom: 25px;">
                     Recibirás una confirmación por WhatsApp y email con los detalles de seguimiento.
                 </p>
-                <button class="btn-primary" onclick="document.body.removeChild(this.closest('.modal-overlay'))">
+                <button class="btn-primary" onclick="clearCartAndCloseModal(this)">
                     Continuar Comprando
                 </button>
             </div>
@@ -993,6 +989,18 @@ function calculateSubtotal() {
 
 function calculateDeliveryCost(district) {
     return deliveryCosts[district] || 0;
+}
+
+function clearCartAndCloseModal(button) {
+    // Clear the cart
+    cart = [];
+    updateCartDisplay();
+    
+    // Close the modal
+    document.body.removeChild(button.closest('.modal-overlay'));
+    
+    // Reset body overflow
+    document.body.style.overflow = '';
 }
 
 // Enhanced notification system
