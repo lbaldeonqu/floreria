@@ -60,8 +60,14 @@ exports.handler = async (event, context) => {
       console.log('📝 Product data received:', productData);
 
       // Add product using shared storage
-      const category = productData.filter || 'products';
-      const newProduct = sharedStorage.addProduct(productData, category);
+      // Usar 'filter' para determinar la sección de almacenamiento (products, ofertas, etc.)
+      // Pero asegurar que 'category' esté presente para el filtrado por categorías
+      const storageSection = productData.filter || 'products';
+      
+      console.log('📂 Storage section:', storageSection);
+      console.log('🏷️ Product category:', productData.category);
+      
+      const newProduct = sharedStorage.addProduct(productData, storageSection);
 
       console.log('✅ Product added successfully with ID:', newProduct.id);
 

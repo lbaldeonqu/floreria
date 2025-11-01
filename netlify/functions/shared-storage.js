@@ -113,7 +113,7 @@ const addProduct = (productData, category = 'products') => {
   products[category].push(newProduct);
   saveProductsToStorage(products);
   
-  console.log(`✅ Producto agregado: ID ${newId}, Categoría: ${category}`);
+  console.log(`✅ Producto agregado: ID ${newId}, Sección: ${category}`);
   return newProduct;
 };
 
