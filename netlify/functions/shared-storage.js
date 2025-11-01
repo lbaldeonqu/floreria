@@ -146,12 +146,23 @@ const updateProduct = (productId, updates) => {
   const categoryProducts = products[category];
   const productIndex = categoryProducts.findIndex(p => p.id === productId);
   
+  // Filtrar valores undefined/null para preservar datos existentes
+  const filteredUpdates = {};
+  Object.keys(updates).forEach(key => {
+    if (updates[key] !== undefined && updates[key] !== null && updates[key] !== '') {
+      filteredUpdates[key] = updates[key];
+    }
+  });
+  
   const updatedProduct = {
     ...product,
-    ...updates,
+    ...filteredUpdates,
     id: productId,
     updated_at: new Date().toISOString()
   };
+  
+  console.log(`🔄 Actualizando producto ${productId}:`, filteredUpdates);
+  console.log(`🖼️ Imagen preservada:`, updatedProduct.image ? 'SÍ' : 'NO');
   
   categoryProducts[productIndex] = updatedProduct;
   saveProductsToStorage(products);

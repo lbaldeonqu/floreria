@@ -808,6 +808,19 @@
                     return;
                 }
             } else {
+                // Si es una actualización y no hay nueva imagen, preservar la existente
+                if (editingProductId) {
+                    // Encontrar el producto actual para preservar su imagen
+                    let currentProduct = null;
+                    Object.values(adminProducts).flat().forEach(p => {
+                        if (p.id === editingProductId) currentProduct = p;
+                    });
+                    
+                    if (currentProduct && currentProduct.image) {
+                        productData.image = currentProduct.image; // Preservar imagen existente
+                        console.log('🖼️ Preservando imagen existente del producto');
+                    }
+                }
                 // No image file, proceed directly
                 await submitProduct(productData, submitBtn, originalText);
             }
@@ -820,6 +833,7 @@
                     // Update existing product
                     console.log('🔄 Updating product with ID:', editingProductId);
                     console.log('📦 Product data being sent:', productData);
+                    console.log('🖼️ Image in data:', productData.image ? 'PRESENT' : 'MISSING');
                     const updateUrl = `/api/products?id=${editingProductId}`;
                     console.log('🔗 Update URL:', updateUrl);
                     
