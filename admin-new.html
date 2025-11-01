@@ -878,12 +878,26 @@
         async function deleteProduct(productId) {
             if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
                 try {
-                    const response = await fetch(`/api/delete-product?id=${productId}`, {
+                    console.log('🗑️ Intentando eliminar producto ID:', productId);
+                    
+                    // Intentar primero con la función dedicada
+                    let response = await fetch(`/api/delete-product?id=${productId}`, {
                         method: 'DELETE',
                         credentials: 'include'
                     });
                     
+                    // Si da 404, intentar con products.js como fallback
+                    if (response.status === 404) {
+                        console.log('⚠️ Función delete-product no disponible, usando fallback products.js');
+                        response = await fetch(`/api/products?id=${productId}`, {
+                            method: 'DELETE',
+                            credentials: 'include'
+                        });
+                    }
+                    
+                    console.log('📡 Delete response status:', response.status);
                     const data = await response.json();
+                    console.log('📦 Delete response data:', data);
                     
                     if (response.ok) {
                         await loadProductsFromAPI();
@@ -891,10 +905,11 @@
                         loadProductsList();
                         showMessage(data.message, 'success');
                     } else {
-                        showMessage(data.error || 'Error al eliminar producto', 'error');
+                        showMessage(data.message || data.error || 'Error al eliminar producto', 'error');
                     }
                 } catch (error) {
-                    showMessage('Error de conexión', 'error');
+                    console.error('❌ Error eliminando producto:', error);
+                    showMessage('Error de conexión: ' + error.message, 'error');
                 }
             }
         }

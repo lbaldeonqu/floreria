@@ -75,17 +75,72 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // PUT y DELETE methods redirected to their specific functions
-    if (event.httpMethod === 'PUT' || event.httpMethod === 'DELETE') {
-      const operation = event.httpMethod === 'PUT' ? 'update' : 'delete';
+    if (event.httpMethod === 'DELETE') {
+      console.log('🗑️ DELETE request in products.js');
+      
+      // Get product ID from query parameters or path
+      let productId = null;
+      
+      if (event.queryStringParameters && event.queryStringParameters.id) {
+        productId = parseInt(event.queryStringParameters.id);
+      } else if (event.path) {
+        const pathParts = event.path.split('/');
+        const lastPart = pathParts[pathParts.length - 1];
+        if (!isNaN(lastPart)) {
+          productId = parseInt(lastPart);
+        }
+      }
+
+      console.log('🆔 Product ID to delete:', productId);
+
+      if (!productId || isNaN(productId)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ 
+            message: 'Product ID is required (use ?id=123 or /products/123)',
+            queryParams: event.queryStringParameters,
+            path: event.path
+          })
+        };
+      }
+
+      // Delete using shared storage
+      const deleted = sharedStorage.deleteProduct(productId);
+
+      if (!deleted) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ 
+            message: 'Product not found',
+            searchedId: productId
+          })
+        };
+      }
+
+      console.log('✅ Product deleted successfully via products.js');
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          message: 'Product deleted successfully',
+          deletedId: productId
+        })
+      };
+    }
+
+    // PUT method redirected to specific function
+    if (event.httpMethod === 'PUT') {
       return {
         statusCode: 301,
         headers: {
           ...headers,
-          'Location': `/api/${operation}-product`
+          'Location': `/api/update-product`
         },
         body: JSON.stringify({ 
-          message: `Please use /api/${operation}-product endpoint for ${operation} operations`
+          message: `Please use /api/update-product endpoint for update operations`
         })
       };
     }
