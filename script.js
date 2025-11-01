@@ -746,6 +746,12 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     
     // Collect form data
     const formData = new FormData(this);
+    
+    // Calculate total
+    const subtotal = calculateSubtotal();
+    const deliveryCost = calculateDeliveryCost(formData.get('district'));
+    const totalAmount = subtotal + deliveryCost;
+    
     const orderData = {
         customer: {
             name: formData.get('name'),
@@ -761,7 +767,7 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
             time: formData.get('time')
         },
         payment: formData.get('payment'),
-        total: document.getElementById('checkout-total').textContent
+        total: `S/ ${totalAmount.toFixed(2)}`
     };
     
     // Simulate order processing
